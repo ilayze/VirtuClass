@@ -1,6 +1,8 @@
 VirtuClass
 ==========
 
+![Project](https://github.com/downloads/ilayze/VirtuClass/logo2.jpg)
+
 Your Virtual Class.  
 New world of connection, convenience and matual assistance is in your hands.  
 
