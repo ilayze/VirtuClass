@@ -4,7 +4,7 @@ VirtuClass
 Your Virtual Class.  
 New world of connection, convenience and matual assistance is in your hands.  
 
-By:  
+__By__:  
 Raz Cohen  
 Ilay Zeidman  
 Gilad Baruchian  
@@ -15,8 +15,8 @@ Please give us feedbacks! We want to deliver you the best product possible.
 
 
 
-Follow us:  
+__Follow us__:  
 
-- [Our wiki](https://github.com/ilayze/VirtuClass/wiki)
+- [Wiki Page](https://github.com/ilayze/VirtuClass/wiki)
 
 - [Iteration 0](https://github.com/ilayze/VirtuClass/wiki/VirtuClass--Milestone-0-ZFR)
