@@ -23,7 +23,7 @@ __Follow us__:
 
 - [Wiki Page](https://github.com/ilayze/VirtuClass/wiki)
 
-- [Iteration 0](https://github.com/ilayze/VirtuClass/wiki/VirtuClass--Milestone-0---ZFR)
+- [Iteration 0](https://github.com/ilayze/VirtuClass/wiki/VirtuClass-Milestone0-ZFR)
 
 - [User Guide](https://github.com/downloads/ilayze/VirtuClass/ViruClass%20User%20Documentation.docx)
 
