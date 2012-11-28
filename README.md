@@ -25,6 +25,8 @@ __Follow us__:
 
 - [Iteration 0](https://github.com/ilayze/VirtuClass/wiki/VirtuClass-Milestone0-ZFR)
 
+- [Iteration 1](https://github.com/ilayze/VirtuClass/wiki/Iteration-1---Minimum-Valuable-Product)
+
 - [User Guide](https://github.com/downloads/ilayze/VirtuClass/ViruClass%20User%20Documentation.docx)
 
 
