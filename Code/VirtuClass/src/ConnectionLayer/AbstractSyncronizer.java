@@ -1,4 +1,4 @@
-package ConnectionLayer;
+package connectionLayer;
 
 import java.net.Socket;
 
