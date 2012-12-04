@@ -16,4 +16,5 @@ public abstract class AbstractSyncronizer {
 	public abstract boolean Connect(String userName, String password);
 	// Returns an array of open classes.
 	public abstract AbstractClass[] getOpenClasses();
+
 }
