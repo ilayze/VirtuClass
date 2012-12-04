@@ -1,4 +1,4 @@
-package LogicLayer;
+package logicLayer;
 
 public abstract class AbstractUser {
 	private String _username;

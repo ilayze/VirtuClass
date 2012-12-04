@@ -1,4 +1,4 @@
-package LogicLayer;
+package logicLayer;
 
 /**
  * @author gilad baruchian

@@ -1,4 +1,4 @@
-package LogicLayer;
+package logicLayer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

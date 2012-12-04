@@ -2,7 +2,8 @@ package connectionLayer;
 
 import java.net.Socket;
 
-import LogicLayer.AbstractClass;
+import logicLayer.AbstractClass;
+
 
 /**
  * @author gilad baruchian
