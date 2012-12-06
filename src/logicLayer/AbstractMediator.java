@@ -3,10 +3,7 @@ package logicLayer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * @author gilad baruchian
- *
- */
+
 public abstract class AbstractMediator implements ActionListener{
 	private static final String CONF_FILE_PATH = "\\Data\\UsrConf.dat";
 	

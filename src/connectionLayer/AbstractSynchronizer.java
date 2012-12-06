@@ -1,6 +1,6 @@
 package connectionLayer;
 
-import java.net.Socket;
+//import java.net.Socket;
 
 import logicLayer.AbstractClass;
 
@@ -9,8 +9,8 @@ import logicLayer.AbstractClass;
  * @author gilad baruchian
  *
  */
-public abstract class AbstractSyncronizer {
-	private Socket _socket;
+public abstract class AbstractSynchronizer {
+	//private Socket _socket;
 	
 	// Connects to the DB software using the user name and pass.
 	// returns ture/false if connection was successful.

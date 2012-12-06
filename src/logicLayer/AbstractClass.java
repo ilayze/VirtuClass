@@ -1,9 +1,5 @@
 package logicLayer;
 
-/**
- * @author gilad baruchian
- *
- */
 public abstract class AbstractClass {
 	private String _className;
 	private String[] _abstractUser;

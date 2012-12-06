@@ -8,9 +8,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JList;
 import javax.swing.border.LineBorder;
-import javax.swing.border.EtchedBorder;
+//import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-import java.awt.FlowLayout;
+//import java.awt.FlowLayout;
 import javax.swing.AbstractListModel;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -20,6 +20,10 @@ import java.awt.event.ActionEvent;
 
 public class ServerChooserFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
