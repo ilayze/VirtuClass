@@ -43,7 +43,9 @@ and in our very user friendly wiki page.
 
 ### How to compile the project?  
 Our project is built with java language, therefore you can download the code and compile it with the regular eclipse© software compiler.  
-
+####steps:  
+ * 1) download [eclipse JUNO]( http://download.eclipse.org/eclipse/downloads/drops4/R-4.2-201206081400/) 4.2 or higher 
+ 
 ### How to prepare a new version?  
 Each time a new version is released it will be published in a new folder with the new version number, and its updates.  
 The new version is supposed to solve all the bugs that were found on the earlier releases (which you can find on our Bugs Reports).  
@@ -72,4 +74,5 @@ In every interaction will perform the unit testing so we can check the MFF-main 
 The testing package will mainly involve MFF testing & due to the possible schedule will combine advanced & negative testing and mainly at the middle of the project.  
 
 docx form: [Developer Guide](https://github.com/downloads/ilayze/VirtuClass/Development_Documentation_for_VirtuClass_updated.docx)    
+
 
