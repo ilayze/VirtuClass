@@ -44,7 +44,8 @@ and in our very user friendly wiki page.
 ### How to compile the project?  
 Our project is built with java language, therefore you can download the code and compile it with the regular eclipse© software compiler.  
 ####steps:  
- * 1) download [eclipse JUNO]( http://download.eclipse.org/eclipse/downloads/drops4/R-4.2-201206081400/) 4.2 or higher 
+ * __1)__ Download [eclipse JUNO 4.2]( http://download.eclipse.org/eclipse/downloads/drops4/R-4.2-201206081400/) or higher  
+ * __2)__ __Download EGit:__ Open eclipse. If EGit not installed on your eclipse version, do the following: go to Help > Install New Software… > Add… , in the location field type http://download.eclipse.org/egit/updates, and in the Name field type EGit. Hit Ok and start downloading!  
  
 ### How to prepare a new version?  
 Each time a new version is released it will be published in a new folder with the new version number, and its updates.  
