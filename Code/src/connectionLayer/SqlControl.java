@@ -31,4 +31,19 @@ public class SqlControl {
 
 		}
 	}
+	
+
+	// **************************************************************************8
+	public boolean signUp(String username, String password, int permission) {
+
+		try {
+			st.executeUpdate("INSERT INTO virtuclass.users (`username`, `userpassword`,`permission`) VALUES ('"
+					+ username + "', '" + password + "','" + permission + "');");
+			return true;
+		} catch (SQLException ex) {
+			lgr = Logger.getLogger(SqlControl.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+			return false;
+		}
+	}
 }
