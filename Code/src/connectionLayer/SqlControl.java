@@ -66,5 +66,21 @@ public class SqlControl {
 			return -1;
 		}
 	}
+	
+
+	// *************************************************************************************************
+	
+	public boolean deleteUser(String username)
+	{
+		try {
+			st.executeUpdate("DELETE FROM virtuclass.users WHERE `username`='"+username+"'");
+			return true;
+		} catch (SQLException ex) {
+			lgr = Logger.getLogger(SqlControl.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+			return false;
+		}
+	}
+
 
 }
