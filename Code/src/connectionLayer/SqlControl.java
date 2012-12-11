@@ -46,4 +46,25 @@ public class SqlControl {
 			return false;
 		}
 	}
+	
+
+	// ************************************************************************************************
+	public int signIn(String username) {
+		ResultSet rs1 = null;
+		try {
+			rs1 = st.executeQuery("SELECT * FROM virtuclass.users WHERE username = '"
+					+ username + "' ;");
+			while (rs1.next()) {
+				if (rs1.getString(1).equals(username)) {
+					return rs1.getInt(3);
+				}
+			}
+			return -1;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
 }
