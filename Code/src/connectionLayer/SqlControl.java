@@ -21,6 +21,14 @@ public class SqlControl {
 		String url = "jdbc:mysql://" + ip + ":" + port + "/" + database;
 		String user = user1;
 		String password = password1;
+
+		try {
+			con = DriverManager.getConnection(url, user, password);
+			st = con.createStatement();
+		} catch (SQLException ex) {
+			lgr = Logger.getLogger(SqlControl.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+
+		}
 	}
-		
 }
