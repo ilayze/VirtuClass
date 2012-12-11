@@ -15,4 +15,12 @@ public class SqlControl {
 	Statement st = null;
 	Logger lgr;
 
+	public SqlControl(String ip, String port, String database, String user1,
+			String password1) {
+
+		String url = "jdbc:mysql://" + ip + ":" + port + "/" + database;
+		String user = user1;
+		String password = password1;
+	}
+		
 }
