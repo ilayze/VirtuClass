@@ -81,6 +81,21 @@ public class SqlControl {
 			return false;
 		}
 	}
+	
+	// *************************************************************************************************
+	
+	public boolean addClass(String classname,String classcreator)
+	{
+		try {
+			st.executeUpdate("INSERT INTO virtuclass.Classes (`Classname`, `Username`) VALUES ('"+classname+"', '"+classcreator+"');");
+			return true;
+		} catch (SQLException ex) {
+			lgr = Logger.getLogger(SqlControl.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+			return false;
+		}
+	}
+	
 
 
 }
