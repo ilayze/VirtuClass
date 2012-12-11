@@ -96,6 +96,20 @@ public class SqlControl {
 		}
 	}
 	
+	// *************************************************************************************************
+
+	
+	public boolean deleteClass(String classname)
+	{
+		try {
+			st.executeUpdate("DELETE FROM virtuclass.Classes WHERE `classname`='"+classname+"'");
+			return true;
+		} catch (SQLException ex) {
+			lgr = Logger.getLogger(SqlControl.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+			return false;
+		}
+	}
 
 
 }
