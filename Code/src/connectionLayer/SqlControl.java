@@ -11,5 +11,8 @@ import javax.management.Query;
 
 //******************************************************************
 public class SqlControl {
+	Connection con = null;
+	Statement st = null;
+	Logger lgr;
 
 }
