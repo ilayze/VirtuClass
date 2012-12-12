@@ -101,6 +101,26 @@ public class VirtuClassServerChat {
 		public void run() {
 		    int maxClientsCount = this.maxClientsCount;
 		    clientThread[] threads = this.threads;
+		    
+
+		    try {
+		      /*
+		       * Create input and output streams for this client.
+		       */
+		      is = new DataInputStream(clientSocket.getInputStream());
+		      os = new PrintStream(clientSocket.getOutputStream());
+		      os.println("Enter your name.");
+		      String name = is.readLine().trim();
+		      os.println("Hello " + name
+		          + " to our chat room.\nTo leave enter /quit in a new line");
+		      for (int i = 0; i < maxClientsCount; i++) {
+		        if (threads[i] != null && threads[i] != this) {
+		          threads[i].os.println("*** A new user " + name
+		              + " entered the chat room !!! ***");
+		        }
+		      }
+		    }catch (IOException e) {
+		    }
 		  }
 
 	}
