@@ -54,6 +54,30 @@ package connectionLayer;
 		          + host);
 		    }
 
+
+		    /*
+		     * If everything has been initialized then we want to write some data to the
+		     * socket we have opened a connection to on the port portNumber.
+		     */
+		    if (clientSocket != null && os != null && is != null) {
+		      try {
+
+		        /* Create a thread to read from the server. */
+		        new Thread(new VirtuClassClientChat()).start();
+		        while (!closed) {
+		          os.println(inputLine.readLine().trim());
+		        }
+		        /*
+		         * Close the output stream, close the input stream, close the socket.
+		         */
+		        os.close();
+		        is.close();
+		        clientSocket.close();
+		      } catch (IOException e) {
+		        System.err.println("IOException:  " + e);
+		      }
+		    }
+
 	  }
 	@Override
 	public void run() {
