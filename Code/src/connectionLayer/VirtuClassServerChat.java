@@ -45,6 +45,33 @@ public class VirtuClassServerChat {
 	    }
 
 
+	    /*
+	     * Create a client socket for each connection and pass it to a new client
+	     * thread.
+	     */
+	    while (true) {
+	      try {
+	        clientSocket = serverSocket.accept();
+	        int i = 0;
+	        for (i = 0; i < maxClientsCount; i++) {
+	          if (threads[i] == null) {
+	            (threads[i] = new clientThread(clientSocket, threads)).start();
+	            break;
+	          }
+	        }
+	        if (i == maxClientsCount) {
+	          PrintStream os = new PrintStream(clientSocket.getOutputStream());
+	          os.println("Server too busy. Try later.");
+	          os.close();
+	          clientSocket.close();
+	        }
+	      } catch (IOException e) {
+	        System.out.println(e);
+	      }
+	    }
+	  }
+
+
 	}
 	class clientThread extends Thread {
 
@@ -61,4 +88,4 @@ public class VirtuClassServerChat {
 			  }
 
 	}
-}
+
