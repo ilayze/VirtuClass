@@ -136,6 +136,19 @@ public class VirtuClassServerChat {
 		                + " is leaving the chat room !!! ***");
 		          }
 		        }
+		      os.println("*** Bye " + name + " ***");
+
+		      /*
+		       * Clean up. Set the current thread variable to null so that a new client
+		       * could be accepted by the server.
+		       */
+		      for (int i = 0; i < maxClientsCount; i++) {
+		        if (threads[i] == this) {
+		          threads[i] = null;
+		        }
+		      }
+
+		      
 
 		    }catch (IOException e) {
 		    }
