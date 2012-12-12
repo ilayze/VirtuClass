@@ -37,6 +37,23 @@ package connectionLayer;
 		      host = args[0];
 		      portNumber = Integer.valueOf(args[1]).intValue();
 		    }
+		    
+
+		    /*
+		     * Open a socket on a given host and port. Open input and output streams.
+		     */
+		    try {
+		      clientSocket = new Socket(host, portNumber);
+		      inputLine = new BufferedReader(new InputStreamReader(System.in));
+		      os = new PrintStream(clientSocket.getOutputStream());
+		      is = new DataInputStream(clientSocket.getInputStream());
+		    } catch (UnknownHostException e) {
+		      System.err.println("Don't know about host " + host);
+		    } catch (IOException e) {
+		      System.err.println("Couldn't get I/O for the connection to the host "
+		          + host);
+		    }
+
 	  }
 	@Override
 	public void run() {
