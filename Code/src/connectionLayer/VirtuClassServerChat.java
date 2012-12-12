@@ -148,6 +148,13 @@ public class VirtuClassServerChat {
 		        }
 		      }
 
+
+		      /*
+		       * Close the output stream, close the input stream, close the socket.
+		       */
+		      is.close();
+		      os.close();
+		      clientSocket.close();
 		      
 
 		    }catch (IOException e) {
