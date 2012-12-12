@@ -97,5 +97,11 @@ public class VirtuClassServerChat {
 			    maxClientsCount = threads.length;
 			  }
 
+		  @SuppressWarnings("deprecation")
+		public void run() {
+		    int maxClientsCount = this.maxClientsCount;
+		    clientThread[] threads = this.threads;
+		  }
+
 	}
 
