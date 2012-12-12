@@ -119,6 +119,18 @@ public class VirtuClassServerChat {
 		              + " entered the chat room !!! ***");
 		        }
 		      }
+		      while (true) {
+		          String line = is.readLine();
+		          if (line.startsWith("/quit")) {
+		            break;
+		          }
+		          for (int i = 0; i < maxClientsCount; i++) {
+		            if (threads[i] != null) {
+		              threads[i].os.println("<" + name + "&gr; " + line);
+		            }
+		          }
+		        }
+
 		    }catch (IOException e) {
 		    }
 		  }
