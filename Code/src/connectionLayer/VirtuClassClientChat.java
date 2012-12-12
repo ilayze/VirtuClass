@@ -27,11 +27,11 @@ public class VirtuClassClientChat implements Runnable {
 		// The default port.
 		int portNumber = 8888;
 		// The default host.
-		String host = "10.8.4.110";
+		String host = "10.8.5.163";
 
 		if (args.length < 2) {
 			System.out
-			.println("Usage: java MultiThreadChatClient <host> <portNumber>\n"
+			.println("Usage: java VirtuClassClientChat <host> <portNumber>\n"
 					+ "Now using host=" + host + ", portNumber=" + portNumber);
 		} else {
 			host = args[0];
