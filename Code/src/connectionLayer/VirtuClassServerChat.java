@@ -126,7 +126,7 @@ class clientThread extends Thread {
 				}
 				for (int i = 0; i < maxClientsCount; i++) {
 					if (threads[i] != null) {
-						threads[i].os.println("<" + name + "&gr; " + line);
+						threads[i].os.println("<" + name + "&VirtuClass; " + line);
 					}
 				}
 			}
