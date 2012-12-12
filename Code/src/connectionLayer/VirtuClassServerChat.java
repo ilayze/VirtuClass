@@ -34,6 +34,16 @@ public class VirtuClassServerChat {
 	      portNumber = Integer.valueOf(args[0]).intValue();
 	    }
 
+	    /*
+	     * Open a server socket on the portNumber (default 2222). Note that we can
+	     * not choose a port less than 1023 if we are not privileged users (root).
+	     */
+	    try {
+	      serverSocket = new ServerSocket(portNumber);
+	    } catch (IOException e) {
+	      System.out.println(e);
+	    }
+
 
 	}
 	class clientThread extends Thread {
