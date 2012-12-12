@@ -79,10 +79,32 @@ package connectionLayer;
 		    }
 
 	  }
-	@Override
+
+
+	  /*
+	   * Create a thread to read from the server. (non-Javadoc)
+	   * 
+	   * @see java.lang.Runnable#run()
+	   */
+	  @SuppressWarnings("deprecation")
 	public void run() {
-		// TODO Auto-generated method stub
-		
+	    /*
+	     * Keep on reading from the socket till we receive "Bye" from the
+	     * server. Once we received that then we want to break.
+	     */
+	    String responseLine;
+	    try {
+	      while ((responseLine = is.readLine()) != null) {
+	        System.out.println(responseLine);
+	        if (responseLine.indexOf("*** Bye") != -1)
+	          break;
+	      }
+	      closed = true;
+	    } catch (IOException e) {
+	      System.err.println("IOException:  " + e);
+	    }
+	  }
 	}
 
-}
+
+
