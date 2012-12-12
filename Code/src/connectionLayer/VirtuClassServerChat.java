@@ -23,7 +23,17 @@ public class VirtuClassServerChat {
 	  private static final clientThread[] threads = new clientThread[maxClientsCount];
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
+	    // The default port number.
+	    int portNumber = 8888;
+	    if (args.length < 1) {
+	      System.out
+	          .println("Usage: java MultiThreadChatServer <portNumber>\n"
+	              + "Now using port number=" + portNumber);
+	    } else {
+	      portNumber = Integer.valueOf(args[0]).intValue();
+	    }
+
 
 	}
 	class clientThread extends Thread {
