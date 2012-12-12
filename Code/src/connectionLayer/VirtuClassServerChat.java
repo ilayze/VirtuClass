@@ -12,12 +12,33 @@ import java.net.ServerSocket;
 
 public class VirtuClassServerChat {
 
-	/**
-	 * @param args
-	 */
+
+	  // The server socket.
+	  private static ServerSocket serverSocket = null;
+	  // The client socket.
+	  private static Socket clientSocket = null;
+
+	  // This chat server can accept up to maxClientsCount clients' connections.
+	  private static final int maxClientsCount = 10;
+	  private static final clientThread[] threads = new clientThread[maxClientsCount];
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
 	}
+	class clientThread extends Thread {
 
+		  private DataInputStream is = null;
+		  private PrintStream os = null;
+		  private Socket clientSocket = null;
+		  private final clientThread[] threads;
+		  private int maxClientsCount;
+		  
+		  public clientThread(Socket clientSocket, clientThread[] threads) {
+			    this.clientSocket = clientSocket;
+			    this.threads = threads;
+			    maxClientsCount = threads.length;
+			  }
+
+	}
 }
