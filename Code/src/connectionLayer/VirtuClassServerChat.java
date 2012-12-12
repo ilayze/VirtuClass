@@ -130,6 +130,12 @@ public class VirtuClassServerChat {
 		            }
 		          }
 		        }
+		      for (int i = 0; i < maxClientsCount; i++) {
+		          if (threads[i] != null && threads[i] != this) {
+		            threads[i].os.println("*** The user " + name
+		                + " is leaving the chat room !!! ***");
+		          }
+		        }
 
 		    }catch (IOException e) {
 		    }
