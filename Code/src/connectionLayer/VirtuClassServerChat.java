@@ -28,7 +28,7 @@ public class VirtuClassServerChat {
 		int portNumber = 8888;
 		if (args.length < 1) {
 			System.out
-			.println("Usage: java MultiThreadChatServer <portNumber>\n"
+			.println("Usage: java VirtuClassServerChat <portNumber>\n"
 					+ "Now using port number=" + portNumber);
 		} else {
 			portNumber = Integer.valueOf(args[0]).intValue();

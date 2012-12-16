@@ -27,7 +27,7 @@ public class VirtuClassClientChat implements Runnable {
 		// The default port.
 		int portNumber = 8888;
 		// The default host.
-		String host = "192.168.1.120";
+		String host = "localhost";
 
 		if (args.length < 2) {
 			System.out
