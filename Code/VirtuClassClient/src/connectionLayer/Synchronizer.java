@@ -63,9 +63,9 @@ public class Synchronizer {
 		// now that I have my connection
 		String test = "aBcDeFgHiJkLmNoPqRsTuVwXyZ";
 		// send the string to the server
-		System.out.println("Client sending \"" + test + "\" to server");
+		System.out.println("Client sending \"" + s + "\" to server");
 		try {
-			Soutput.writeObject(test);
+			Soutput.writeObject(s);
 			Soutput.flush();
 		}
 		catch(IOException e) {
