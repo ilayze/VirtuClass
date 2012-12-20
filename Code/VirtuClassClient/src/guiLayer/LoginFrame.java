@@ -32,28 +32,15 @@ public class LoginFrame extends JFrame {
 	private JPanel contentPane;
 	private JPasswordField passwordField;
 	private JLabel lblUsername;
-	private JTextField textField;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoginFrame frame = new LoginFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JTextField usernameField;
+	public final static String EXIT_CMD = "exit";
+	public final static String LOGIN_CMD = "login";
+	public final static String SIGNUP_CMD = "sign up";
 
 	/**
 	 * Create the frame.
 	 */
-	public LoginFrame() {
+	public LoginFrame(ActionListener m) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 338, 440);
 		contentPane = new JPanel();
@@ -74,16 +61,19 @@ public class LoginFrame extends JFrame {
 		lblUsername.setBounds(26, 172, 67, 18);
 		contentPane.add(lblUsername);
 		
-		textField = new JTextField();
-		textField.setBounds(100, 171, 215, 25);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		usernameField = new JTextField();
+		usernameField.setBounds(100, 171, 215, 25);
+		contentPane.add(usernameField);
+		usernameField.setColumns(10);
 		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.setActionCommand(LOGIN_CMD);
 		btnLogin.setBounds(26, 275, 289, 30);
 		contentPane.add(btnLogin);
 		
 		JButton btnExit = new JButton("Exit");
+		btnExit.setActionCommand(EXIT_CMD);
+		btnExit.addActionListener(m);
 		btnExit.setBounds(26, 363, 289, 30);
 		contentPane.add(btnExit);
 		
@@ -91,13 +81,14 @@ public class LoginFrame extends JFrame {
 		chckbxRememberMe.setBounds(97, 245, 111, 18);
 		contentPane.add(chckbxRememberMe);
 		
-		JButton btnNewButton = new JButton("Sing Up");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton signUpButton = new JButton("Sign Up");
+		signUpButton.setActionCommand(SIGNUP_CMD);
+		signUpButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnNewButton.setBounds(26, 316, 289, 35);
-		contentPane.add(btnNewButton);
+		signUpButton.setBounds(26, 316, 289, 35);
+		contentPane.add(signUpButton);
 	}
 }
 
