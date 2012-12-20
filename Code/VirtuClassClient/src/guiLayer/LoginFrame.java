@@ -100,3 +100,4 @@ public class LoginFrame extends JFrame {
 		contentPane.add(btnNewButton);
 	}
 }
+
