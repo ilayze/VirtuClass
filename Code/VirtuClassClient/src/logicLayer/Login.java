@@ -13,8 +13,10 @@ public class Login {
 			throw new Exception("Connection failed");
 	}
 	
-	public void login(String username,String Password){
-		_sync.sendData("fsdfsd");
+	public void login(String username,String password){
+		_sync.sendData(username);
+		_sync.sendData(password);
+		_sync.getData();
 		
 	}
 	
