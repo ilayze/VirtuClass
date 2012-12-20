@@ -26,7 +26,14 @@ public class Mediator{
 			}
 			else if(e.getActionCommand()==LoginFrame.LOGIN_CMD)
 			{
-
+				try {
+					Login l = new Login();
+					l.login("ggg","aaa");
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				 
 				
 			}
