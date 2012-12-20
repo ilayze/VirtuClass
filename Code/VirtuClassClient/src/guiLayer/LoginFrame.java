@@ -68,6 +68,7 @@ public class LoginFrame extends JFrame {
 		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.setActionCommand(LOGIN_CMD);
+		btnLogin.addActionListener(m);
 		btnLogin.setBounds(26, 275, 289, 30);
 		contentPane.add(btnLogin);
 		
@@ -83,10 +84,7 @@ public class LoginFrame extends JFrame {
 		
 		JButton signUpButton = new JButton("Sign Up");
 		signUpButton.setActionCommand(SIGNUP_CMD);
-		signUpButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		signUpButton.addActionListener(m);
 		signUpButton.setBounds(26, 316, 289, 35);
 		contentPane.add(signUpButton);
 	}
