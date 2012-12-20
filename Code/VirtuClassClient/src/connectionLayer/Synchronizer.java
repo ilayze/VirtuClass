@@ -75,7 +75,7 @@ public class Synchronizer {
 		return true;
 	}
 
-	boolean getData(String s)
+	public boolean getData()
 	{
 		// read back the answer from the server
 		String response;
