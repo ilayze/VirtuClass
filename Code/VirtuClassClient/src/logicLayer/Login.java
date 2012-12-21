@@ -3,8 +3,8 @@ package logicLayer;
 import connectionLayer.Synchronizer;
 
 public class Login{
-	Synchronizer _sync;
-	LoginInfo li;
+	private Synchronizer _sync;
+	private LoginInfo li;
 	
 	public Login(LoginInfo li) throws Exception
 	{
@@ -15,22 +15,14 @@ public class Login{
 			throw new Exception("Connection failed");
 	}
 	
-	public void login(String username,char[] cs){
+	public void login(){
+		String username=li.getUsername();
+		char [] cs = li.getPassword();
 		_sync.sendData(username);
 		String pw = String.copyValueOf(cs);
 		_sync.sendData(pw);
 		_sync.getData();
 		_sync.getData();
-	}
-	
-	String getUsername()
-	{
-		return li.getUsername();
-	}
-	
-	char[] getPassword()
-	{
-		return li.getPassword();
 	}
 	
 }
