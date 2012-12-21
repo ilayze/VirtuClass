@@ -70,9 +70,11 @@ public class ConnectionsCreator {
                         System.out.println("Thread waiting for a String from the Client");
                         // read a String (which is an object)
                         try {
-                                String str = (String) Sinput.readObject();
-                                str = str.toUpperCase();
-                                Soutput.writeObject(str);
+                                String username = (String) Sinput.readObject();
+                                String password = (String) Sinput.readObject();
+                                //str = str.toUpperCase();
+                                Soutput.writeObject(username + " OK");
+                                Soutput.writeObject(password + " OK");
                                 Soutput.flush();
                         }
                         catch (IOException e) {
