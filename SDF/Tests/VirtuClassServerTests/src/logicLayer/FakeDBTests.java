@@ -9,7 +9,8 @@ public class FakeDBTests {
 	FakeDB db = FakeDB.getDB();
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		
+		assertEquals(-1, db.signIn("wrongUsr", "1234"));
 	}
 
 }
