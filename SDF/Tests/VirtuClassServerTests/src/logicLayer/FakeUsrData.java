@@ -27,9 +27,18 @@ public class FakeUsrData {
 	
 	public boolean equals(Object obj)
 	{
-		if(!(obj instanceof FakeUsrData))
-			return false;
-		FakeUsrData usr= (FakeUsrData)(obj);
-		return username.equals(usr.username);		
+		if(obj instanceof FakeUsrData)
+		{
+			FakeUsrData usr= (FakeUsrData)(obj);
+			return ((username.equals(usr.username))
+					&& (password.equals(usr.password)));
+		}
+		else if(obj instanceof String)
+		{
+			String usr=(String)obj;
+			return username.equals(usr);
+		}
+		return false;
+	
 	}
 }
