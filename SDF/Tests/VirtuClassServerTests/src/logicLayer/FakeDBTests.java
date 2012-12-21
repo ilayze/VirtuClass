@@ -8,7 +8,7 @@ public class FakeDBTests {
 
 	FakeDB db = FakeDB.getDB();
 	@Test
-	public void test() {
+	public void initTests() {
 		
 		assertEquals(-1, db.signIn("wrongUsr", "1234"));
 		assertEquals(true, db.signUp("newUsr1", "12345"));
@@ -18,8 +18,13 @@ public class FakeDBTests {
 		assertEquals(-1, db.signIn("newUsr2", "3332"));
 		assertEquals(true, db.signUp("newUsr3", "12345"));
 		assertEquals(false, db.signUp("newUsr2", "12345"));
-		assertEquals(true, db.deleteUser("newUsr1"));
+		
 		
 	}
-
+	@Test
+	public void deletionTests()
+	{
+		assertEquals(true, db.deleteUser("newUsr1"));
+		assertEquals(false, db.deleteUser("newUsr1"));
+	}
 }
