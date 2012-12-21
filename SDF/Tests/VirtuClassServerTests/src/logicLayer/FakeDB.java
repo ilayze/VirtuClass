@@ -60,7 +60,6 @@ public class FakeDB {
 				itr.remove();
 				return true;
 			}
-			System.out.println(itr);
 		}
 		return false;
 		
