@@ -29,7 +29,7 @@ public class Synchronizer {
 		return sync;
 			
 	}
-	
+
 	public boolean connect(int port) {
 		// we use "localhost" as host name, the server is on the same machine
 		// but you can put the "real" server name or IP address
@@ -90,11 +90,11 @@ public class Synchronizer {
 		return true;
 	}
 
-	void disconnect() throws IOException
+	public void disconnect() throws IOException
 	{
-
 		Sinput.close();
 		Soutput.close();
+		socket.close();
 
 	}    
 	/*while(true)
