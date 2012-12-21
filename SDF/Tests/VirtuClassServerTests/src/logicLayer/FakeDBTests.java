@@ -26,5 +26,7 @@ public class FakeDBTests {
 	{
 		assertEquals(true, db.deleteUser("newUsr1"));
 		assertEquals(false, db.deleteUser("newUsr1"));
+		assertEquals(false, db.deleteUser("newUsr4"));
+		assertEquals(true, db.deleteUser("newUsr3"));
 	}
 }
