@@ -23,7 +23,12 @@ public class Mediator{
 			}
 			else if(e.getActionCommand()==LoginFrame.SIGNUP_CMD)
 			{
-				
+				try {
+					
+					l.signUp();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 			else if(e.getActionCommand()==LoginFrame.LOGIN_CMD)
 			{
