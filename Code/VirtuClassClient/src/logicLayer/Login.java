@@ -17,6 +17,7 @@ public class Login {
 		_sync.sendData(username);
 		_sync.sendData(password);
 		_sync.getData();
+		_sync.getData();
 		 
 	}
 	
