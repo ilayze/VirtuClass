@@ -61,7 +61,7 @@ public class Synchronizer {
 	public boolean sendData(String s)
 	{
 		// now that I have my connection
-		String test = "aBcDeFgHiJkLmNoPqRsTuVwXyZ";
+		//String test = "aBcDeFgHiJkLmNoPqRsTuVwXyZ";
 		// send the string to the server
 		System.out.println("Client sending \"" + s + "\" to server");
 		try {
