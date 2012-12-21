@@ -13,12 +13,12 @@ public class Synchronizer {
 	ObjectInputStream Sinput;                // to read the socker
 	ObjectOutputStream Soutput;        // towrite on the socket
 	Socket socket;
-	private static Synchronizer sync;
+	private static Synchronizer sync=null;
 	
 	// Constructor connection receiving a socket number
 	private Synchronizer()
 	{
-		sync=null;
+		//sync=null;
 	}
 	public static Synchronizer getSync()
 	{
