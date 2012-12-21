@@ -13,6 +13,7 @@ public class Mediator{
 	
 	private class LoginMediator implements ActionListener{
 	
+		Login l;
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -27,8 +28,9 @@ public class Mediator{
 			else if(e.getActionCommand()==LoginFrame.LOGIN_CMD)
 			{
 				try {
-					Login l = new Login();
-					l.login("ggg","aaa");
+					
+					
+					l.login(l.getUsername(),l.getPassword());
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -52,6 +54,7 @@ public class Mediator{
 				try {
 					LoginMediator m = new LoginMediator();
 					LoginFrame frame = new LoginFrame(m);
+					m.l = new Login(frame.li);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
