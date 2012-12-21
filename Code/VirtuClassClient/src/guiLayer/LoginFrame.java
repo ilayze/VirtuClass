@@ -13,17 +13,20 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+
+
 //import java.awt.Canvas;
 //import java.awt.Component;
 //import javax.swing.Box;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import logicLayer.LoginInfo;
 
 /**
  * @author gilad baruchian
  *
  */
-public class LoginFrame extends JFrame {
+public class LoginFrame extends JFrame{
 
 	/**
 	 * 
@@ -36,7 +39,7 @@ public class LoginFrame extends JFrame {
 	public final static String EXIT_CMD = "exit";
 	public final static String LOGIN_CMD = "login";
 	public final static String SIGNUP_CMD = "sign up";
-
+	public LoginInfo li;
 	/**
 	 * Create the frame.
 	 */
@@ -87,21 +90,32 @@ public class LoginFrame extends JFrame {
 		signUpButton.addActionListener(m);
 		signUpButton.setBounds(26, 316, 289, 35);
 		contentPane.add(signUpButton);
+		
+		li=new LoginInfo() {	//function pointer. we don't want the textfields to be passed, only their current values.
+			
+			@Override
+			public String getUsername()
+			{
+				if(usernameField.getText()==null)
+					return "";
+				return usernameField.getText();
+			}
+			/**
+			 * 
+			 * @return password in pwField
+			 */
+			@Override
+			public char[] getPassword()
+			{
+				char pw[]={};
+				if(passwordField.getPassword()==null)
+					return pw;
+				return passwordField.getPassword();
+			}
+		};
 	}
 	
-	public String getUsername()
-	{
-		if(usernameField.getText()==null)
-			return "";
-		return usernameField.getText();
-	}
 	
-	public char[] getPassword()
-	{
-		char pw[]={};
-		if(passwordField.getPassword()==null)
-			return pw;
-		return passwordField.getPassword();
-	}
+
 }
 
