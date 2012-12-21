@@ -25,6 +25,8 @@ public class FakeDB {
 	
 	public boolean signUp(String username, String password)
 	{
+		if(username==null || password==null || username.length()==0 || password.length()==0)
+			return false;
 		ListIterator<FakeUsrData> itr;
 		
 		for(itr = list.listIterator(); itr.hasNext();)
@@ -38,6 +40,8 @@ public class FakeDB {
 	}
 	public int signIn(String username, String password)
 	{
+		if(username==null || password==null || username.length()==0 || password.length()==0)
+			return -1;
 		FakeUsrData tmpUsr = new FakeUsrData(username, password, 0);
 		ListIterator<FakeUsrData> itr;
 		for(itr = list.listIterator(); itr.hasNext();)
@@ -52,6 +56,8 @@ public class FakeDB {
 	}
 	public boolean deleteUser(String username)
 	{
+		if(username==null  || username.length()==0)
+			return false;
 		ListIterator<FakeUsrData> itr;
 		for(itr = list.listIterator(); itr.hasNext();)
 		{
@@ -67,12 +73,16 @@ public class FakeDB {
 	
 	public boolean addClass(String classname,String classcreator)
 	{
-		return false;
+		if(classname==null || classcreator==null || classname.length()==0 || classcreator.length()==0)
+			return false;
+		return true;
 		
 	}
 	public boolean deleteClass(String classname)
 	{
-		return false;
+		if(classname==null || classname.length()==0)
+			return false;
+		return true;
 		
 	}
 }
