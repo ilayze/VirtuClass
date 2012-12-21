@@ -1,5 +1,6 @@
 package logicLayer;
 
+
 public class StubDB {
 	
 	private static StubDB db=null;
@@ -24,6 +25,7 @@ public class StubDB {
 	}
 	public int signIn(String username)
 	{
+
 		return -1;
 		
 	}
