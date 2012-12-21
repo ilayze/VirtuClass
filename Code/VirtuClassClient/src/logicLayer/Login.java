@@ -33,8 +33,8 @@ public class Login{
 			return;
 		}
 		
-		_sync.sendData(username);
-		_sync.sendData(pw);
+		_sync.sendData("0"+username);
+		_sync.sendData("0"+pw);
 		_sync.getData();
 		_sync.getData();
 	}
