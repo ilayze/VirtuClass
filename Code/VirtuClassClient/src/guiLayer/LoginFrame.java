@@ -88,5 +88,20 @@ public class LoginFrame extends JFrame {
 		signUpButton.setBounds(26, 316, 289, 35);
 		contentPane.add(signUpButton);
 	}
+	
+	public String getUsername()
+	{
+		if(usernameField.getText()==null)
+			return "";
+		return usernameField.getText();
+	}
+	
+	public char[] getPassword()
+	{
+		char pw[]={};
+		if(passwordField.getPassword()==null)
+			return pw;
+		return passwordField.getPassword();
+	}
 }
 
