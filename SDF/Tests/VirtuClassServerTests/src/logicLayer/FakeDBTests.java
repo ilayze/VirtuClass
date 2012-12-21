@@ -18,6 +18,7 @@ public class FakeDBTests {
 		assertEquals(-1, db.signIn("newUsr2", "3332"));
 		assertEquals(true, db.signUp("newUsr3", "12345"));
 		assertEquals(false, db.signUp("newUsr2", "12345"));
+		assertEquals(true, db.deleteUser("newUsr1"));
 		
 	}
 
