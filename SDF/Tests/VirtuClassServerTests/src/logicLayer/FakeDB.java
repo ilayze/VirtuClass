@@ -52,7 +52,16 @@ public class FakeDB {
 	}
 	public boolean deleteUser(String username)
 	{
-		
+		ListIterator<FakeUsrData> itr;
+		for(itr = list.listIterator(); itr.hasNext();)
+		{
+			if(itr.next().equals(username))
+			{
+				itr.remove();
+				return true;
+			}
+			System.out.println(itr);
+		}
 		return false;
 		
 	}
