@@ -41,4 +41,10 @@ public class FakeUsrData {
 		return false;
 	
 	}
+	
+	public String toString()
+	{
+		return username;
+		
+	}
 }
