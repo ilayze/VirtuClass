@@ -5,16 +5,21 @@ import java.util.LinkedList;
 
 
 public class FakeDB {
-	private static LinkedList <String> list;
+	private static LinkedList <String> list=null;
+	private static FakeDB db=null;
 	
 	private FakeDB()
 	{
-		list=null;
+		
 	}
-	public static void initDB()
+	public static FakeDB getDB()
 	{
-		if(list==null)
+		if(db==null)
+		{
 			list = new LinkedList<String>();
+			db = new FakeDB();
+		}
+		return db;
 	}
 	
 	public boolean signUp(String username, String password, int permission)
