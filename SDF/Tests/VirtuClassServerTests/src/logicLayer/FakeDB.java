@@ -23,7 +23,7 @@ public class FakeDB {
 		return db;
 	}
 	
-	public boolean signUp(String username, String password, int permission)
+	public boolean signUp(String username, String password)
 	{
 		ListIterator<FakeUsrData> itr;
 		
@@ -32,7 +32,7 @@ public class FakeDB {
 				return false;	
 		
 
-		FakeUsrData newUsr = new FakeUsrData(username, password, permission);
+		FakeUsrData newUsr = new FakeUsrData(username, password, 0);
 		list.add(newUsr);
 		return true;
 	}

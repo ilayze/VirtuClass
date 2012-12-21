@@ -18,7 +18,7 @@ public class StubDB {
 		return db;
 	}
 	
-	public boolean signUp(String username, String password, int permission)
+	public boolean signUp(String username, String password)
 	{
 		
 		return false;
