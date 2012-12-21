@@ -1,5 +1,7 @@
 package logicLayer;
 
+import javax.swing.JOptionPane;
+
 import connectionLayer.Synchronizer;
 
 public class Login{
@@ -18,8 +20,20 @@ public class Login{
 	public void login(){
 		String username=li.getUsername();
 		char [] cs = li.getPassword();
-		_sync.sendData(username);
+		if(username==null || username.length()==0)
+		{
+			JOptionPane.showMessageDialog(null, "Please enter username");
+			return;
+		}
+
 		String pw = String.copyValueOf(cs);
+		if(pw==null || pw.length()==0)
+		{
+			JOptionPane.showMessageDialog(null, "Please enter password");
+			return;
+		}
+		
+		_sync.sendData(username);
 		_sync.sendData(pw);
 		_sync.getData();
 		_sync.getData();
