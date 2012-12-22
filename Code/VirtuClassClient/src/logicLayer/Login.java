@@ -38,8 +38,20 @@ public class Login{
 		
 		_sync.sendData("0"+username);
 		_sync.sendData("0"+pw);
-		_sync.getData();
+		String data = _sync.getData();	//if 0 = success, 1=failure
 		_sync.disconnect();
+		if (data.equals("0"))
+		{
+			//success
+		}
+		else if (data.equals("1"))
+		{
+			//failure
+		}
+		else
+		{
+			throw new Exception("Unknown message");
+		}
 		
 	}
 	
@@ -64,8 +76,23 @@ public class Login{
 		
 		_sync.sendData("1"+username);
 		_sync.sendData("1"+pw);
-		_sync.getData();
+		String data = _sync.getData();	//if 0 = success, 1=failure
+		if(data==null)
+			throw new Exception("Problem reading back from server");
 		_sync.disconnect();
+		if (data.equals("0"))
+		{
+			//success
+		}
+		else if (data.equals("1"))
+		{
+			//failure
+		}
+		else
+		{
+			throw new Exception("Unknown message");
+		}
+		
 	}
 	
 	private void reconnect()throws Exception
