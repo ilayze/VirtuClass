@@ -17,6 +17,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.AbstractAction;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
@@ -24,7 +26,8 @@ import java.awt.event.ActionListener;
 public class EditorFrame extends JFrame {
 
 	private JPanel contentPane;
-	private final Action action = new ExitAction();
+	private final Action exitAction = new ExitAction();
+	private final Action aboutAction = new AboutAction();
 
 	/**
 	 * Launch the application.
@@ -56,6 +59,11 @@ public class EditorFrame extends JFrame {
 		menuBar.add(mnFile);
 		
 		JMenuItem mntmAbout = new JMenuItem("About");
+		mntmAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		mntmAbout.setAction(aboutAction);
 		mnFile.add(mntmAbout);
 		
 		JMenuItem mntmHelp = new JMenuItem("Help");
@@ -63,7 +71,7 @@ public class EditorFrame extends JFrame {
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");
 
-		mntmExit.setAction(action);
+		mntmExit.setAction(exitAction);
 		mnFile.add(mntmExit);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(153, 204, 255));
@@ -109,6 +117,16 @@ public class EditorFrame extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			System.exit(0);
+		}
+	}
+	
+	private class AboutAction extends AbstractAction {
+		public AboutAction() {
+			putValue(NAME, "About");
+			putValue(SHORT_DESCRIPTION, "Details about VirtuClass");
+		}
+		public void actionPerformed(ActionEvent e) {
+			JOptionPane.showMessageDialog(null, "VirtuClass is an open source network made for students\naround the globe to help in homework assignments and more.", "About Virtuclass",JOptionPane.INFORMATION_MESSAGE );
 		}
 	}
 }
