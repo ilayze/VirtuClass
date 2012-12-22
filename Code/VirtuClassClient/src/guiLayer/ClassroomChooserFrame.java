@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
-public class ServerChooserFrame extends JFrame {
+public class ClassroomChooserFrame extends JFrame {
 
 	/**
 	 * 
@@ -33,7 +33,7 @@ public class ServerChooserFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ServerChooserFrame frame = new ServerChooserFrame();
+					ClassroomChooserFrame frame = new ClassroomChooserFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +45,7 @@ public class ServerChooserFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ServerChooserFrame() {
+	public ClassroomChooserFrame() {
 		setTitle("Open Rooms");
 		setAlwaysOnTop(true);
 		setBackground(new Color(153, 204, 204));
