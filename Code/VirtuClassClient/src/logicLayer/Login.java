@@ -50,7 +50,7 @@ public class Login{
 		}
 		else
 		{
-			throw new Exception("Unknown message");
+			throw new UnknownServerMessageException("Invalid return after call to login. Expected 0/1");
 		}
 		
 	}
@@ -90,7 +90,7 @@ public class Login{
 		}
 		else
 		{
-			throw new Exception("Unknown message");
+			throw new UnknownServerMessageException("Invalid return after call to signUp. Expected 0/1");
 		}
 		
 	}
