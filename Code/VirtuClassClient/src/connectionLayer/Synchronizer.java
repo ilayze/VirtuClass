@@ -75,19 +75,20 @@ public class Synchronizer {
 		return true;
 	}
 
-	public boolean getData()
+	public String getData()
 	{
 		// read back the answer from the server
 		String response;
 		try {
 			response = (String) Sinput.readObject();
-			System.out.println("Read back from server: " + response);
+			return response;
+			//System.out.println("Read back from server: " + response);
 		}
 		catch(Exception e) {
 			System.out.println("Problem reading back from server: " + e);
-			return false;
+			return null;
 		}
-		return true;
+	//	return true;
 	}
 
 	public void disconnect() throws IOException
