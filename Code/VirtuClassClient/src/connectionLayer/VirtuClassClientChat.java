@@ -1,6 +1,9 @@
 package connectionLayer;
 
 
+import guiLayer.EditorFrame;
+
+import java.awt.EventQueue;
 import java.io.DataInputStream;
 import java.io.PrintStream;
 import java.io.BufferedReader;
@@ -21,7 +24,9 @@ public class VirtuClassClientChat implements Runnable {
 	private static BufferedReader inputLine = null;
 	private static boolean closed = false;
 
+	//private static EditorFrame editor;
 
+	private String lastStringRead="";
 	public static void main(String[] args) {
 
 		// The default port.
@@ -30,8 +35,7 @@ public class VirtuClassClientChat implements Runnable {
 		String host = "localhost";
 
 		if (args.length < 2) {
-			System.out
-			.println("Usage: java VirtuClassClientChat <host> <portNumber>\n"
+			System.out.println("Usage: java VirtuClassClientChat <host> <portNumber>\n"
 					+ "Now using host=" + host + ", portNumber=" + portNumber);
 		} else {
 			host = args[0];
@@ -65,7 +69,11 @@ public class VirtuClassClientChat implements Runnable {
 				/* Create a thread to read from the server. */
 				new Thread(new VirtuClassClientChat()).start();
 				while (!closed) {
-					os.println(inputLine.readLine().trim());
+					EditorFrame editor=EditorFrame.getEditor();
+					String inputFromEditor = editor.getText();
+					String input=inputLine.readLine().trim();
+					os.println(input);
+					
 				}
 				/*
 				 * Close the output stream, close the input stream, close the socket.
@@ -95,7 +103,10 @@ public class VirtuClassClientChat implements Runnable {
 		String responseLine;
 		try {
 			while ((responseLine = is.readLine()) != null) {
+				lastStringRead+=responseLine+"\n";
 				System.out.println(responseLine);
+				EditorFrame editor = EditorFrame.getEditor();
+				editor.setText(responseLine);
 				if (responseLine.indexOf("*** Bye") != -1)
 					break;
 			}
