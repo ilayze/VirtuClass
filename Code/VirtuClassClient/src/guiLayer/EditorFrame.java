@@ -23,37 +23,26 @@ import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
 
+
+
+
 public class EditorFrame extends JFrame {
 
+	private static EditorFrame editorFrame;
 	private JPanel contentPane;
 	private final Action exitAction = new ExitAction();
 	private final Action aboutAction = new AboutAction();
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EditorFrame frame = new EditorFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	private JEditorPane editorPane;
 	/**
 	 * Create the frame.
 	 */
-	public EditorFrame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 742, 749);
+	private void initializeEditor()
+	{
+		editorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		editorFrame.setBounds(100, 100, 742, 749);
 		
 		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+		editorFrame.setJMenuBar(menuBar);
 		
 		JMenu mnFile = new JMenu("  File  ");
 		menuBar.add(mnFile);
@@ -76,9 +65,9 @@ public class EditorFrame extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(153, 204, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		editorFrame.setContentPane(contentPane);
 		
-		JEditorPane editorPane = new JEditorPane();
+		editorPane = new JEditorPane();
 		
 		JSeparator separator = new JSeparator();
 		separator.setForeground(new Color(0, 0, 51));
@@ -109,7 +98,35 @@ public class EditorFrame extends JFrame {
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
+		editorFrame.setVisible(true);
+
 	}
+	
+	private EditorFrame() {
+			}
+	
+	public static EditorFrame getEditor()
+	{
+		if(editorFrame==null)
+		{
+			editorFrame = new EditorFrame();
+			editorFrame.initializeEditor();
+		}
+		return editorFrame;
+	}
+	
+	
+	public String getText()
+	{
+		return editorPane.getText();
+	}
+	
+	public void setText(String s)
+	{
+		if(s!=null)
+			editorPane.setText(editorPane.getText()+ s+"\n");
+	}
+	
 	private class ExitAction extends AbstractAction {
 		public ExitAction() {
 			putValue(NAME, "Exit");
