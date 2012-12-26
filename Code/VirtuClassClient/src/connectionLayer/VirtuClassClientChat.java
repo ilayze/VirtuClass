@@ -4,6 +4,9 @@ package connectionLayer;
 import guiLayer.EditorFrame;
 
 import java.awt.EventQueue;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.DataInputStream;
 import java.io.PrintStream;
 import java.io.BufferedReader;
@@ -11,6 +14,9 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.concurrent.locks.Lock;
+
+import logicLayer.OpenClass;
 
 public class VirtuClassClientChat implements Runnable {
 
@@ -23,24 +29,26 @@ public class VirtuClassClientChat implements Runnable {
 
 	private static BufferedReader inputLine = null;
 	private static boolean closed = false;
-
+	private OpenClass op;
+	public String comingChat=""; 
 	//private static EditorFrame editor;
 
 	private String lastStringRead="";
-	public static void main(String[] args) {
+	
+	private VirtuClassClientChat(OpenClass op, int a)
+	{
+		this.op=op;
+		
+	}
+	public VirtuClassClientChat(OpenClass op) {
 
+		this.op=op;	
+		
 		// The default port.
 		int portNumber = 8888;
 		// The default host.
 		String host = "localhost";
 
-		if (args.length < 2) {
-			System.out.println("Usage: java VirtuClassClientChat <host> <portNumber>\n"
-					+ "Now using host=" + host + ", portNumber=" + portNumber);
-		} else {
-			host = args[0];
-			portNumber = Integer.valueOf(args[1]).intValue();
-		}
 
 
 		/*
@@ -67,12 +75,27 @@ public class VirtuClassClientChat implements Runnable {
 			try {
 
 				/* Create a thread to read from the server. */
-				new Thread(new VirtuClassClientChat()).start();
+				new Thread(new VirtuClassClientChat(op, 0)).start();
+	
 				while (!closed) {
-					EditorFrame editor=EditorFrame.getEditor();
-					String inputFromEditor = editor.getText();
-					String input=inputLine.readLine().trim();
-					os.println(input);
+		//			EditorFrame editor=EditorFrame.getEditor();
+		//			String inputFromEditor = editor.getText();
+					
+				//	String input=inputLine.readLine().trim();
+					//Thread t = new  Thread(new Runnable() {
+						
+
+					synchronized(op){
+						try {
+							op.wait();
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					String a = op.ei.getText();
+					os.println(a);
 					
 				}
 				/*
@@ -87,8 +110,11 @@ public class VirtuClassClientChat implements Runnable {
 		}
 
 	}
-
-
+	
+	private VirtuClassClientChat()
+	{
+	
+	}
 	/*
 	 * Create a thread to read from the server. (non-Javadoc)
 	 * 
@@ -103,16 +129,25 @@ public class VirtuClassClientChat implements Runnable {
 		String responseLine;
 		try {
 			while ((responseLine = is.readLine()) != null) {
-				lastStringRead+=responseLine+"\n";
-				System.out.println(responseLine);
-				EditorFrame editor = EditorFrame.getEditor();
-				editor.setText(responseLine);
-				if (responseLine.indexOf("*** Bye") != -1)
-					break;
+				//comingChat=responseLine;
+
+				OpenClass op1=op;
+				if(op1==null)
+					System.out.println("OP IS NULL2");
+				op.ei.setText(responseLine);
+	//			lastStringRead+=responseLine+"\n";
+//				System.out.println(responseLine);
+//				EditorFrame editor = EditorFrame.getEditor();
+//				if(editor==null)
+//					System.out.println("editor is null!!");
+//				else
+//					editor.setText(responseLine);
+//				if (responseLine.indexOf("*** Bye") != -1)
+//					break;
 			}
 			closed = true;
-		} catch (IOException e) {
-			System.err.println("IOException:  " + e);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }
