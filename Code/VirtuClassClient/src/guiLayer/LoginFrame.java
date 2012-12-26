@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
+import java.awt.Toolkit;
+
 import javax.swing.JPasswordField;
 //import java.awt.CardLayout;
 //import javax.swing.JLayeredPane;
@@ -15,10 +17,13 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
 
+
 //import java.awt.Canvas;
 //import java.awt.Component;
 //import javax.swing.Box;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import logicLayer.LoginInfo;
 
@@ -40,11 +45,12 @@ public class LoginFrame extends JFrame{
 	public final static String LOGIN_CMD = "login";
 	public final static String SIGNUP_CMD = "sign up";
 	public LoginInfo li;
+	
 	/**
 	 * Create the frame.
 	 */
 	public LoginFrame(ActionListener m) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 338, 440);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(153, 204, 255));
@@ -91,6 +97,7 @@ public class LoginFrame extends JFrame{
 		signUpButton.setBounds(26, 316, 289, 35);
 		contentPane.add(signUpButton);
 		
+		
 		li=new LoginInfo() {	//function pointer. we don't want the textfields to be passed, only their current values.
 			
 			@Override
@@ -112,7 +119,9 @@ public class LoginFrame extends JFrame{
 					return pw;
 				return passwordField.getPassword();
 			}
+
 		};
+		
 	}
 	
 	
