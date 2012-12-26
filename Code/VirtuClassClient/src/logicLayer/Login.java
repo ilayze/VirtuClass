@@ -1,5 +1,7 @@
 package logicLayer;
 
+import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
@@ -9,44 +11,51 @@ import connectionLayer.Synchronizer;
 public class Login{
 	private Synchronizer _sync;
 	private LoginInfo li;
+	private WindowEvent wev;
 	
-	public Login(LoginInfo li) throws Exception
+	public Login(LoginInfo li, WindowEvent wev) throws Exception
 	{
 		this.li=li;
+		this.wev=wev;
 //		_sync = Synchronizer.getSync();
 //		boolean connected = _sync.connect(8500);
 //		if(!connected)
 //			throw new Exception("Connection failed");
 	}
 	
-	public void login() throws Exception{
+	public boolean login() throws Exception{
 		reconnect();
 		String username=li.getUsername();
 		char [] cs = li.getPassword();
 		if(username==null || username.length()==0)
 		{
 			JOptionPane.showMessageDialog(null, "Please enter username");
-			return;
+			throw new Exception("invalid username");
 		}
 
 		String pw = String.copyValueOf(cs);
 		if(pw==null || pw.length()==0)
 		{
 			JOptionPane.showMessageDialog(null, "Please enter password");
-			return;
+			throw new Exception("invalid password");
 		}
 		
 		_sync.sendData("0"+username);
 		_sync.sendData("0"+pw);
 		String data = _sync.getData();	//if 0 = success, 1=failure
 		_sync.disconnect();
+		System.out.println(data);
 		if (data.equals("0"))
 		{
-			//success
+			System.out.println("success");
+
+			return true;
 		}
 		else if (data.equals("1"))
 		{
-			//failure
+			System.out.println("failure");
+			
+			return false;
 		}
 		else
 		{
@@ -56,7 +65,7 @@ public class Login{
 	}
 	
 	
-	public void signUp() throws Exception//for now it's almost like login. But later it will change
+	public boolean signUp() throws Exception//for now it's almost like login. But later it will change
 	{
 		reconnect();
 		String username=li.getUsername();
@@ -64,14 +73,14 @@ public class Login{
 		if(username==null || username.length()==0)
 		{
 			JOptionPane.showMessageDialog(null, "Please enter username");
-			return;
+			throw new Exception("invalid username");
 		}
 
 		String pw = String.copyValueOf(cs);
 		if(pw==null || pw.length()==0)
 		{
 			JOptionPane.showMessageDialog(null, "Please enter password");
-			return;
+			throw new Exception("invalid password");
 		}
 		
 		_sync.sendData("1"+username);
@@ -80,13 +89,16 @@ public class Login{
 		if(data==null)
 			throw new Exception("Problem reading back from server");
 		_sync.disconnect();
+		System.out.println(data);
 		if (data.equals("0"))
 		{
-			//success
+			System.out.println("success");
+			return true;
 		}
 		else if (data.equals("1"))
 		{
-			//failure
+			System.out.println("failure");
+			return false;
 		}
 		else
 		{
@@ -101,5 +113,10 @@ public class Login{
 		boolean connected = _sync.connect(8500);
 		if(!connected)
 			throw new Exception("Connection failed");
+	}
+	
+	public void forceExit()
+	{
+		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
 	}
 }
