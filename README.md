@@ -27,6 +27,10 @@ __Follow us__:
 
 - [Iteration 1](https://github.com/ilayze/VirtuClass/wiki/Iteration-1-~-Minimum-Valuable-Product-%28MVP%29-~)
 
+- [Iteration 2](https://github.com/ilayze/VirtuClass/wiki/Iteration-2---TDD)
+
+- [Iteration 3](https://github.com/ilayze/VirtuClass/wiki/Iteration-3--Refactoring)
+
 - [User Guide](https://github.com/downloads/ilayze/VirtuClass/ViruClass%20User%20Documentation.docx)
 
 
