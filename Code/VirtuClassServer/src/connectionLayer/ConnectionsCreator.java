@@ -86,9 +86,9 @@ public class ConnectionsCreator {
 					loginStatus=fakeDB.signIn(username.substring(1), password.substring(1));
 					System.out.println("username: " + username + ". login status: "+loginStatus);
 					if(loginStatus>=0)
-						toWrite+="username: " + username.substring(1) + " OK";
+						toWrite+="0";//"username: " + username.substring(1) + " OK";
 					else
-						toWrite+="username: " + username.substring(1) + " Bad";
+						toWrite+="1";//"username: " + username.substring(1) + " Bad";
 				}
 				else if(username.charAt(0)=='1' && password.charAt(0)=='1')
 				{
@@ -96,9 +96,9 @@ public class ConnectionsCreator {
 					signUpStatus=fakeDB.signUp(username.substring(1), password.substring(1));
 					System.out.println("username: " + username + ". login status: "+loginStatus);
 					if(signUpStatus==true)
-						toWrite+="username: " + username.substring(1) + " OK";
+						toWrite+="0";//"username: " + username.substring(1) + " OK";
 					else
-						toWrite+="username: " + username.substring(1) + " Bad";
+						toWrite+="1";//"username: " + username.substring(1) + " Bad";
 				}
 
 				Soutput.writeObject(toWrite);
