@@ -24,7 +24,8 @@ public class ConnectionsCreator {
 		/* create socket server and wait for connection requests */
 		try
 		{
-			serverSocket = new ServerSocket(port);
+		
+			serverSocket = new ServerSocket(port);//, 5, InetAddress.getByName("0.0.0.0"));
 			System.out.println("Server waiting for client on port " + serverSocket.getLocalPort());
 
 			while(true)
