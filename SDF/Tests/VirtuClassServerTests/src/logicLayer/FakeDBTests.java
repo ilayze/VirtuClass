@@ -19,14 +19,22 @@ public class FakeDBTests {
 		assertEquals(true, db.signUp("newUsr3", "12345"));
 		assertEquals(false, db.signUp("newUsr2", "12345"));
 		
-		
-	}
-	@Test
-	public void deletionTests()
-	{
+
 		assertEquals(true, db.deleteUser("newUsr1"));
 		assertEquals(false, db.deleteUser("newUsr1"));
 		assertEquals(false, db.deleteUser("newUsr4"));
 		assertEquals(true, db.deleteUser("newUsr3"));
+
+	}
+	
+	
+	
+
+	
+	
+	@Test
+	public void deletionTests()
+	{
+
 	}
 }
