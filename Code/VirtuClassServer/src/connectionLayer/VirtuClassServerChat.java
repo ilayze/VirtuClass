@@ -2,7 +2,6 @@ package connectionLayer;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.PrintStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.ServerSocket;
@@ -122,6 +121,7 @@ class clientThread extends Thread {
 			}
 			while (true) {
 				String line = is.readUTF();
+				//System.out.println("line read is: "+line);
 				if (line.startsWith("/quit")) {
 					break;
 				}
