@@ -84,34 +84,29 @@ public class Mediator extends Thread{
 
 			}
 
-
+			private void tryToLogin() throws Exception
+			{
+				boolean isOk = l.login();
+				if(!isOk)
+				{
+					JOptionPane.showMessageDialog(null, "Wrong username / password", "Invalid user", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				loginSucceed();
+			}
+			
+			
 			@Override
 			public void run() {
-				System.out.println("got here");
 				try {
-					Thread.sleep(4000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				try {
-					// need to open a new thread here..
-					boolean isOk = l.login();
-					if(!isOk)
-					{
-						JOptionPane.showMessageDialog(null, "Wrong username / password", "Invalid user", JOptionPane.ERROR_MESSAGE);
-						//loginKey.release();
-						return;
-					}
-					loginSucceed();
+					tryToLogin();
 				} catch (Exception e1) {
 					System.out.println(e1.getMessage());
 				}
 				finally
 				{
 					loginKey.release();
-				}
-				
+				}		
 			}
 			
 		}
