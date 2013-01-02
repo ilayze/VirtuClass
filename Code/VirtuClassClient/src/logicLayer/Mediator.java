@@ -9,8 +9,12 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.JOptionPane;
+
+import sun.misc.Lock;
 
 
 
@@ -20,7 +24,7 @@ public class Mediator extends Thread{
 	
 	private class LoginScreenMediator implements ActionListener{
 	
-		Login l;
+		LoginMaster l;
 		LoginMediator lm;
 		SignUpMediator sm;
 		
@@ -40,22 +44,29 @@ public class Mediator extends Thread{
 				lm.loginPressed();
 		}
 		
-		private class LoginMediator
+		private class LoginMediator implements Runnable
 		{
+			
+			Semaphore loginKey = new Semaphore(1);
+			
+			public LoginMediator()
+			{
+				
+			}
+			private LoginMediator(Semaphore obj)
+			{
+				loginKey=obj;
+			}
+			
 			public void loginPressed()
 			{
-				try {
-					// need to open a new thread here..
-					boolean isOk = l.login();
-					if(!isOk)
-					{
-						JOptionPane.showMessageDialog(null, "Wrong username / password", "Invalid user", JOptionPane.ERROR_MESSAGE);
-						return;
-					}
-					loginSucceed();
-				} catch (Exception e1) {
-					System.out.println(e1.getMessage());
+				if(loginKey.tryAcquire())
+				{
+					new Thread(new LoginMediator(loginKey)).start();
 				}
+				return;
+				
+
 			}
 			
 			
@@ -73,6 +84,36 @@ public class Mediator extends Thread{
 					}
 				});
 
+			}
+
+
+			@Override
+			public void run() {
+				System.out.println("got here");
+				try {
+					Thread.sleep(4000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					// need to open a new thread here..
+					boolean isOk = l.login();
+					if(!isOk)
+					{
+						JOptionPane.showMessageDialog(null, "Wrong username / password", "Invalid user", JOptionPane.ERROR_MESSAGE);
+						//loginKey.release();
+						return;
+					}
+					loginSucceed();
+				} catch (Exception e1) {
+					System.out.println(e1.getMessage());
+				}
+				finally
+				{
+					loginKey.release();
+				}
+				
 			}
 			
 		}
@@ -93,6 +134,8 @@ public class Mediator extends Thread{
 				}
 			}
 		}
+		
+		
 		
 	}
 	
@@ -151,7 +194,7 @@ public class Mediator extends Thread{
 					LoginScreenMediator m = new LoginScreenMediator();
 					LoginFrame frame = new LoginFrame(m);
 					WindowEvent wev = new WindowEvent(frame, WindowEvent.WINDOW_CLOSING);
-					m.l = new Login(frame.li,wev);
+					m.l = new LoginMaster(frame.li,wev);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
