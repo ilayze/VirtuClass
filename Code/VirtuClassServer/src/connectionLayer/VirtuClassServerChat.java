@@ -1,6 +1,7 @@
 package connectionLayer;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.PrintStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -60,8 +61,8 @@ public class VirtuClassServerChat {
 					}
 				}
 				if (i == maxClientsCount) {
-					PrintStream os = new PrintStream(clientSocket.getOutputStream());
-					os.println("Server too busy. Try later.");
+					DataOutputStream os = new DataOutputStream(clientSocket.getOutputStream());
+					os.writeUTF("Server too busy. Try later.");
 					os.close();
 					clientSocket.close();
 				}
@@ -86,7 +87,7 @@ public class VirtuClassServerChat {
 class clientThread extends Thread {
 
 	private DataInputStream is = null;
-	private PrintStream os = null;
+	private DataOutputStream os = null;
 	private Socket clientSocket = null;
 	private final clientThread[] threads;
 	private int maxClientsCount;
@@ -97,7 +98,7 @@ class clientThread extends Thread {
 		maxClientsCount = threads.length;
 	}
 
-	@SuppressWarnings("deprecation")
+	//@SuppressWarnings("deprecation")
 	public void run() {
 		int maxClientsCount = this.maxClientsCount;
 		clientThread[] threads = this.threads;
@@ -108,35 +109,35 @@ class clientThread extends Thread {
 			 * Create input and output streams for this client.
 			 */
 			is = new DataInputStream(clientSocket.getInputStream());
-			os = new PrintStream(clientSocket.getOutputStream());
-			os.println("Enter your name.");
-			String name = is.readLine().trim();
-			os.println("Hello " + name
+			os = new DataOutputStream(clientSocket.getOutputStream());
+			os.writeUTF("Enter your name.");
+			String name = is.readUTF().trim();
+			os.writeUTF("Hello " + name
 					+ " to our chat room.\nTo leave enter /quit in a new line");
 			for (int i = 0; i < maxClientsCount; i++) {
 				if (threads[i] != null && threads[i] != this) {
-					threads[i].os.println("*** A new user " + name
+					threads[i].os.writeUTF("*** A new user " + name
 							+ " entered the chat room !!! ***");
 				}
 			}
 			while (true) {
-				String line = is.readLine();
+				String line = is.readUTF();
 				if (line.startsWith("/quit")) {
 					break;
 				}
 				for (int i = 0; i < maxClientsCount; i++) {
 					if (threads[i] != null) {
-						threads[i].os.println("<" + name + "&VirtuClass; " + line);
+						threads[i].os.writeUTF("<" + name + "&VirtuClass; " + line);
 					}
 				}
 			}
 			for (int i = 0; i < maxClientsCount; i++) {
 				if (threads[i] != null && threads[i] != this) {
-					threads[i].os.println("*** The user " + name
+					threads[i].os.writeUTF("*** The user " + name
 							+ " is leaving the chat room !!! ***");
 				}
 			}
-			os.println("*** Bye " + name + " ***");
+			os.writeUTF("*** Bye " + name + " ***");
 
 			/*
 			 * Clean up. Set the current thread variable to null so that a new client

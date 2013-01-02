@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.PrintStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -23,11 +24,11 @@ public class VirtuClassClientChat implements Runnable {
 	// The client socket
 	private static Socket clientSocket = null;
 	// The output stream
-	private static PrintStream os = null;
+	private static DataOutputStream os = null;
 	// The input stream
 	private static DataInputStream is = null;
 
-	private static BufferedReader inputLine = null;
+	//private static BufferedReader inputLine = null;
 	private static boolean closed = false;
 	private OpenClass op;
 	public String comingChat=""; 
@@ -47,7 +48,7 @@ public class VirtuClassClientChat implements Runnable {
 		// The default port.
 		int portNumber = 8888;
 		// The default host.
-		String host = "localhost";
+		String host = "localhost";// can be ip address
 
 
 
@@ -56,8 +57,8 @@ public class VirtuClassClientChat implements Runnable {
 		 */
 		try {
 			clientSocket = new Socket(host, portNumber);
-			inputLine = new BufferedReader(new InputStreamReader(System.in));
-			os = new PrintStream(clientSocket.getOutputStream());
+//			inputLine = new BufferedReader(new InputStreamReader(System.in));
+			os = new DataOutputStream(clientSocket.getOutputStream());
 			is = new DataInputStream(clientSocket.getInputStream());
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host " + host);
@@ -95,7 +96,7 @@ public class VirtuClassClientChat implements Runnable {
 					}
 					
 					String a = op.ei.getText();
-					os.println(a);
+					os.writeUTF(a);
 					
 				}
 				/*
@@ -120,7 +121,7 @@ public class VirtuClassClientChat implements Runnable {
 	 * 
 	 * @see java.lang.Runnable#run()
 	 */
-	@SuppressWarnings("deprecation")
+	//@SuppressWarnings("deprecation")
 	public void run() {
 		/*
 		 * Keep on reading from the socket till we receive "Bye" from the
@@ -128,7 +129,7 @@ public class VirtuClassClientChat implements Runnable {
 		 */
 		String responseLine;
 		try {
-			while ((responseLine = is.readLine()) != null) {
+			while ((responseLine = is.readUTF()) != null) {
 				//comingChat=responseLine;
 
 				OpenClass op1=op;
