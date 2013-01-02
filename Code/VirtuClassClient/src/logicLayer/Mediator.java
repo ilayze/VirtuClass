@@ -25,6 +25,7 @@ public class Mediator extends Thread{
 		LoginMaster l;
 		LoginMediator lm;
 		SignUpMediator sm;
+		Semaphore loginKey = new Semaphore(1);
 		
 		public LoginScreenMediator()
 		{
@@ -44,8 +45,6 @@ public class Mediator extends Thread{
 		
 		private class LoginMediator implements Runnable
 		{
-			
-			Semaphore loginKey = new Semaphore(1);
 			
 			public LoginMediator()
 			{
@@ -111,19 +110,45 @@ public class Mediator extends Thread{
 			
 		}
 		
-		private class SignUpMediator
+		private class SignUpMediator implements Runnable
 		{
+			private SignUpMediator(Semaphore obj) {
+				loginKey=obj;
+			}
+
+			public SignUpMediator()
+			{
+				
+			}
+			
 			public void signUpPressed()
 			{
+				if(loginKey.tryAcquire())
+				{
+					new Thread(new SignUpMediator(loginKey)).start();
+				}
+
+			}
+
+			private void tryToSignUp() throws Exception
+			{
+				boolean isOk = l.signUp();
+				if(!isOk)
+				{
+					JOptionPane.showMessageDialog(null, "Username already exist.", "Choose a different username", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			
+			@Override
+			public void run() {
 				try {
-					
-					boolean isOk = l.signUp();
-					if(!isOk)
-					{
-						JOptionPane.showMessageDialog(null, "Username already exist.", "Choose a different username", JOptionPane.ERROR_MESSAGE);
-					}
+					tryToSignUp();
 				} catch (Exception e1) {
 					System.out.println(e1.getMessage());
+				}
+				finally
+				{
+					loginKey.release();
 				}
 			}
 		}
@@ -200,7 +225,7 @@ public class Mediator extends Thread{
 	
 	public static void main(String[] args) {//init Mediator
 		
-		new Thread(new Mediator());//Mediator m = new Mediator();
+		new Thread(new Mediator());
 	}
 
 }
