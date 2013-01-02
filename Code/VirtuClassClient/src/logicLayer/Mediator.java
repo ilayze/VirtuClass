@@ -45,7 +45,7 @@ public class Mediator extends Thread{
 			public void loginPressed()
 			{
 				try {
-					
+					// need to open a new thread here..
 					boolean isOk = l.login();
 					if(!isOk)
 					{
