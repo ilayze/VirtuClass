@@ -1,21 +1,11 @@
 package connectionLayer;
 
 
-import guiLayer.EditorFrame;
-
-import java.awt.EventQueue;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.PrintStream;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.concurrent.locks.Lock;
 
 import logicLayer.OpenClass;
 
@@ -34,7 +24,6 @@ public class VirtuClassClientChat implements Runnable {
 	public String comingChat=""; 
 	//private static EditorFrame editor;
 
-	private String lastStringRead="";
 	
 	private VirtuClassClientChat(OpenClass op, int a)
 	{
@@ -112,10 +101,10 @@ public class VirtuClassClientChat implements Runnable {
 
 	}
 	
-	private VirtuClassClientChat()
-	{
-	
-	}
+//	private VirtuClassClientChat()
+//	{
+//	
+//	}
 	/*
 	 * Create a thread to read from the server. (non-Javadoc)
 	 * 
@@ -132,6 +121,7 @@ public class VirtuClassClientChat implements Runnable {
 			while ((responseLine = is.readUTF()) != null) {
 				//comingChat=responseLine;
 
+				//System.out.println(responseLine);
 				OpenClass op1=op;
 				if(op1==null)
 					System.out.println("OP IS NULL2");
@@ -148,7 +138,7 @@ public class VirtuClassClientChat implements Runnable {
 			}
 			closed = true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 }
