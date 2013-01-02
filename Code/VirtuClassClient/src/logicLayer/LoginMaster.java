@@ -8,12 +8,13 @@ import javax.swing.JOptionPane;
 
 import connectionLayer.Synchronizer;
 
-public class Login{
+public class LoginMaster{
 	private Synchronizer _sync;
 	private LoginInfo li;
 	private WindowEvent wev;
+	public Login a;
 	
-	public Login(LoginInfo li, WindowEvent wev) throws Exception
+	public LoginMaster(LoginInfo li, WindowEvent wev) throws Exception
 	{
 		this.li=li;
 		this.wev=wev;
@@ -24,7 +25,15 @@ public class Login{
 	}
 	
 	public boolean login() throws Exception{
-		reconnect();
+
+		try
+		{
+			reconnect();
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
 		String username=li.getUsername();
 		char [] cs = li.getPassword();
 		if(username==null || username.length()==0)
@@ -67,7 +76,14 @@ public class Login{
 	
 	public boolean signUp() throws Exception//for now it's almost like login. But later it will change
 	{
-		reconnect();
+		try
+		{
+			reconnect();
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
 		String username=li.getUsername();
 		char [] cs = li.getPassword();
 		if(username==null || username.length()==0)
@@ -119,4 +135,13 @@ public class Login{
 	{
 		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
 	}
+	
+	class Login implements Runnable
+	{
+		public void run()
+		{
+			
+		}
+	}
+	
 }
