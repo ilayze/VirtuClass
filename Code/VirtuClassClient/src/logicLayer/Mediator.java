@@ -120,18 +120,21 @@ public class Mediator extends Thread{
 			EventQueue.invokeLater(new Runnable() {
 			public void run() {
 					try {
-						EditorFrame2 frame = new EditorFrame2(thisClass);
-						frame.setVisible(true);
-						op = new OpenClass(frame.ei);
-						Thread t1 = new Thread(op);
-						t1.start();
-						
-							
-						
+						startEditor();						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}});
+		}
+		
+		public void startEditor()
+		{
+			EditorFrame2 frame = new EditorFrame2(thisClass);
+			frame.setVisible(true);
+			op = new OpenClass(frame.ei);
+			Thread t1 = new Thread(op);
+			t1.start();
+			
 		}
 		
 	}
