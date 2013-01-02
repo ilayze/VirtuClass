@@ -2,7 +2,7 @@
 ========================================================
 
 ### Updated Design : 2.1.13  
-································  
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯  
 #### Major changes:  
 
 com.stateofflow.eclipse.metrics.calculators.cohesion.LackOfCohesionInMethodsCalculator.hendersonSellers
