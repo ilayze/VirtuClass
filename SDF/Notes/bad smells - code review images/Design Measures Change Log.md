@@ -2,8 +2,8 @@
 ========================================================
 
 ### Updated Design : 3.1.13  
-¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ 
-No more bad smells in class Mediator!!   
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯  
+__No more bad smells in class Mediator!!__  
 #### Major changes:  
 
 __[Lack of Cohesion In Methods: Henderson Sellers](https://github.com/ilayze/VirtuClass/blob/master/SDF/Notes/bad%20smells%20-%20code%20review%20images/3.1.13/com.stateofflow.eclipse.metrics.calculators.cohesion.LackOfCohesionInMethodsCalculator.hendersonSellers.jpg)__  
