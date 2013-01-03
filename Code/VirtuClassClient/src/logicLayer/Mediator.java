@@ -209,29 +209,29 @@ public class Mediator extends Thread{
 		
 		
 	}
-	/**
-	 * @param args
-	 */
+
 	public Mediator()
 	{
-		
-		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginScreenMediator m = new LoginScreenMediator();
-					LoginFrame frame = new LoginFrame(m);
-					WindowEvent wev = new WindowEvent(frame, WindowEvent.WINDOW_CLOSING);
-					m.l = new LoginMaster(frame.li,wev);
-					frame.setVisible(true);
+					startLoginScreen();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-		});	
+		});
+		
 	}
 	
-	
+	private void startLoginScreen() throws Exception
+	{
+		LoginScreenMediator m = new LoginScreenMediator();
+		LoginFrame frame = new LoginFrame(m);
+		WindowEvent wev = new WindowEvent(frame, WindowEvent.WINDOW_CLOSING);
+		m.l = new LoginMaster(frame.li,wev);
+		frame.setVisible(true);
+	}
 	
 	public static void main(String[] args) {//init Mediator
 		
