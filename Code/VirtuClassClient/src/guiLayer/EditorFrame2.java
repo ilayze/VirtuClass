@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 
 import javax.swing.ActionMap;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
@@ -20,6 +21,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import logicLayer.EditorInfo;
+import javax.swing.JScrollBar;
 
 public class EditorFrame2 extends JFrame implements Runnable{
 
@@ -58,6 +60,9 @@ public class EditorFrame2 extends JFrame implements Runnable{
 		chatEditorPane.setEditable(false);
 		panel.add(chatEditorPane, BorderLayout.CENTER);
 		
+		JScrollPane scrollBar = new JScrollPane(chatEditorPane);
+		panel.add(scrollBar, BorderLayout.CENTER);
+		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(32, 178, 170));
 		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -69,6 +74,7 @@ public class EditorFrame2 extends JFrame implements Runnable{
 		panel_1.add(lblWriteSomethingHere, BorderLayout.NORTH);
 		chatInputEditorPane = new JEditorPane();
 		panel_1.add(chatInputEditorPane, BorderLayout.CENTER);
+		
 		
 		JLabel label = new JLabel(" ");
 		panel_1.add(label, BorderLayout.WEST);
