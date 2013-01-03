@@ -1,6 +1,18 @@
 #Change Log
 ========================================================
 
+### Updated Design : 3.1.13  
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ 
+No more bad smells in class Mediator!!   
+#### Major changes:  
+
+Henderson  
+pairwise  
+total correlation  
+linesOfCodeInMethod  
+NumberOfLocals  
+
+
 ### Updated Design : 2.1.13  
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯  
 #### Major changes:  
