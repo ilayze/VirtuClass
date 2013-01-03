@@ -113,12 +113,11 @@ public class Mediator extends Thread{
 		private class SignUpMediator implements Runnable
 		{
 			private SignUpMediator(Semaphore obj) {
-				loginKey=obj;
+				loginKey=obj;	
 			}
 
 			public SignUpMediator()
 			{
-				
 			}
 			
 			public void signUpPressed()
@@ -156,47 +155,58 @@ public class Mediator extends Thread{
 		
 		
 	}
-	
-	private class OpenClassMediator implements ActionListener, Runnable
+	//can separate to different classes
+	private class OpenClassMediator implements Runnable//http://eclipse-metrics.sourceforge.net/descriptions/pages/cohesion/PairwiseFieldIrrelation.html
 	{
 		OpenClass op;
-		private OpenClassMediator thisClass;
+		
+		private class OpenClassMessagesMediator implements ActionListener
+		{
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(e.getActionCommand()==EditorFrame2.SEND_CMD)
+				{
+					synchronized (op) { 
+						op.notifyAll();
+					}
+					
+				}
+			}
+			
+		}
+		
 		public OpenClassMediator()
 		{
-			thisClass=this;
+			
 		}
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(e.getActionCommand()==EditorFrame2.SEND_CMD)
-			{
-				synchronized (op) { 
-					op.notifyAll();
-				}
-				
-			}
-		}
+
 		@Override
 		public void run() {
 			EventQueue.invokeLater(new Runnable() {
 			public void run() {
 					try {
+
 						startEditor();						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}});
 		}
-		
+
 		public void startEditor()
 		{
-			EditorFrame2 frame = new EditorFrame2(thisClass);
+			OpenClassMessagesMediator msgMed = new OpenClassMessagesMediator();
+			EditorFrame2 frame = new EditorFrame2(msgMed);
 			frame.setVisible(true);
 			op = new OpenClass(frame.ei);
 			Thread t1 = new Thread(op);
 			t1.start();
-			
+
 		}
+
+		
+		
 		
 	}
 	/**
