@@ -131,13 +131,15 @@ class clientThread extends Thread {
 					}
 				}
 			}
+			os.writeUTF("*** Bye " + name + " ***");
+			os.writeUTF("/quit");
 			for (int i = 0; i < maxClientsCount; i++) {
 				if (threads[i] != null && threads[i] != this) {
 					threads[i].os.writeUTF("*** The user " + name
 							+ " is leaving the chat room !!! ***");
 				}
 			}
-			os.writeUTF("*** Bye " + name + " ***");
+
 
 			/*
 			 * Clean up. Set the current thread variable to null so that a new client

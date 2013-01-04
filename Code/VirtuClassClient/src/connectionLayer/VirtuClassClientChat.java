@@ -83,7 +83,8 @@ public class VirtuClassClientChat implements Runnable {
 							e.printStackTrace();
 						}
 					}
-					
+					if(closed)
+						break;
 					String a = op.ei.getText();
 					os.writeUTF(a);
 					
@@ -118,7 +119,7 @@ public class VirtuClassClientChat implements Runnable {
 		 */
 		String responseLine;
 		try {
-			while ((responseLine = is.readUTF()) != null) {
+			while ((responseLine = is.readUTF()) != null && !responseLine.equals("/quit")) {
 				//comingChat=responseLine;
 
 				//System.out.println(responseLine);
@@ -138,7 +139,7 @@ public class VirtuClassClientChat implements Runnable {
 			}
 			closed = true;
 		} catch (Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 }
