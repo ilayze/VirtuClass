@@ -4,12 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import  connectionLayer.VirtuClassClientChat;
-public class OpenClass implements Runnable ,ActionListener{
+public class OpenClassroom implements Runnable ,ActionListener{
 	
 	public EditorInfo ei;
 	public String newInput="";
 	
-	public OpenClass(EditorInfo ei)
+	public OpenClassroom(EditorInfo ei)
 	{
 		this.ei=ei;
 		
@@ -18,8 +18,7 @@ public class OpenClass implements Runnable ,ActionListener{
 	@Override
 	public void run() {
 		System.out.println("Im chatting !!");
-		new Thread(new VirtuClassClientChat(this));
-		//VirtuClassClientChat vc = new VirtuClassClientChat(this);		
+		new Thread(new VirtuClassClientChat(this));		
 	}
 
 	@Override

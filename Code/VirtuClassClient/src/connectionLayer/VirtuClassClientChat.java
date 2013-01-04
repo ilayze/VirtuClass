@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import logicLayer.OpenClass;
+import logicLayer.OpenClassroom;
 
 public class VirtuClassClientChat implements Runnable {
 
@@ -20,17 +20,17 @@ public class VirtuClassClientChat implements Runnable {
 
 	//private static BufferedReader inputLine = null;
 	private static boolean closed = false;
-	private OpenClass op;
+	private OpenClassroom op;
 	public String comingChat=""; 
 	//private static EditorFrame editor;
 
 	
-	private VirtuClassClientChat(OpenClass op, int a)
+	private VirtuClassClientChat(OpenClassroom op, int a)
 	{
 		this.op=op;
 		
 	}
-	public VirtuClassClientChat(OpenClass op) {
+	public VirtuClassClientChat(OpenClassroom op) {
 
 		this.op=op;	
 		
@@ -123,7 +123,7 @@ public class VirtuClassClientChat implements Runnable {
 				//comingChat=responseLine;
 
 				//System.out.println(responseLine);
-				OpenClass op1=op;
+				OpenClassroom op1=op;
 				if(op1==null)
 					System.out.println("OP IS NULL2");
 				op.ei.setText(responseLine);
