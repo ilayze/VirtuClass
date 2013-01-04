@@ -106,7 +106,9 @@ public class ConnectionsCreator {
 				Soutput.flush();
 			}
 			catch (IOException e) {
-				System.out.println("Exception reading/writing  Streams: " + e);
+				System.out.println("Lost connection from socket");
+		//		System.out.println("Exception reading/writing  Streams: ");
+		//		e.printStackTrace();
 				return;                               
 			}
 			// will surely not happen with a String
@@ -116,6 +118,7 @@ public class ConnectionsCreator {
 				try {
 					Soutput.close();
 					Sinput.close();
+					socket.close();
 				}
 				catch (Exception e) {                                       
 				}
