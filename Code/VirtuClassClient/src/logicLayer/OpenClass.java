@@ -18,7 +18,8 @@ public class OpenClass implements Runnable ,ActionListener{
 	@Override
 	public void run() {
 		System.out.println("Im chatting !!");
-		VirtuClassClientChat vc = new VirtuClassClientChat(this);		
+		new Thread(new VirtuClassClientChat(this));
+		//VirtuClassClientChat vc = new VirtuClassClientChat(this);		
 	}
 
 	@Override
