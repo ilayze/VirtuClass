@@ -3,6 +3,17 @@
 
 ### Updated Design : 3.1.13  
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯  
+__No more bad smells in class LoginMaster!!__  
+#### Major changes:  
+
+__[Lack of Cohesion In Methods - Henderson Sellers](https://github.com/ilayze/VirtuClass/blob/master/SDF/Notes/bad%20smells%20-%20code%20review%20images/4.1.13/Lack%20of%20Cohesion%20In%20Methods%20-%20Henderson%20Sellers.jpg)__  
+__[Lack of Cohesion In Methods - Pairwise Field Irrelation](https://github.com/ilayze/VirtuClass/blob/master/SDF/Notes/bad%20smells%20-%20code%20review%20images/4.1.13/Lack%20of%20Cohesion%20In%20Methods%20-%20Pairwise%20Field%20Irrelation.jpg)__  
+__[Lack of Cohesion In Methods - Total Correlation](https://github.com/ilayze/VirtuClass/blob/master/SDF/Notes/bad%20smells%20-%20code%20review%20images/4.1.13/Lack%20of%20Cohesion%20In%20Methods%20-%20Total%20Correlation.jpg)__  
+__[Lines of Code - Method](https://github.com/ilayze/VirtuClass/blob/master/SDF/Notes/bad%20smells%20-%20code%20review%20images/4.1.13/Lines%20of%20Code%20-%20Method.jpg)__   I don't understand how it dropped that much..  
+__[Number of Statements - Method](https://github.com/ilayze/VirtuClass/blob/master/SDF/Notes/bad%20smells%20-%20code%20review%20images/4.1.13/Number%20of%20Statements%20-%20Method.jpg)__  
+
+### Updated Design : 3.1.13  
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯  
 __No more bad smells in class Mediator!!__  
 #### Major changes:  
 
