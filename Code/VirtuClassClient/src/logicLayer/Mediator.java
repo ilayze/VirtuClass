@@ -85,7 +85,7 @@ public class Mediator extends Thread{
 
 			private void tryToLogin() throws Exception
 			{
-				boolean isOk = l.login();
+				boolean isOk = l.sendRequest(0);//1=signUp, 0 = login
 				if(!isOk)
 				{
 					JOptionPane.showMessageDialog(null, "Wrong username / password", "Invalid user", JOptionPane.ERROR_MESSAGE);
@@ -131,7 +131,7 @@ public class Mediator extends Thread{
 
 			private void tryToSignUp() throws Exception
 			{
-				boolean isOk = l.signUp();
+				boolean isOk = l.sendRequest(1);//1 = signup, 0 = login
 				if(!isOk)
 				{
 					JOptionPane.showMessageDialog(null, "Username already exist.", "Choose a different username", JOptionPane.ERROR_MESSAGE);
