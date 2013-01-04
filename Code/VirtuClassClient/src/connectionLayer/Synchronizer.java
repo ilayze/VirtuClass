@@ -10,11 +10,18 @@ import java.io.*;
 
 public class Synchronizer {
 
-	ObjectInputStream Sinput;                // to read the socker
-	ObjectOutputStream Soutput;        // towrite on the socket
-	Socket socket;
+	public static class SynchronizerData {
+		public ObjectInputStream Sinput;
+		public ObjectOutputStream Soutput;
+		public Socket socket;
+
+		public SynchronizerData() {
+		}
+	}
+
+	private SynchronizerData data = new SynchronizerData();
 	private static Synchronizer sync=null;
-	
+
 	// Constructor connection receiving a socket number
 	private Synchronizer()
 	{
@@ -27,33 +34,19 @@ public class Synchronizer {
 			sync=new Synchronizer();
 		}
 		return sync;
-			
+
 	}
 
 	public boolean connect(int port) {
 		// we use "localhost" as host name, the server is on the same machine
 		// but you can put the "real" server name or IP address
-		try {
-			socket = new Socket("localhost", port);
-		}
-		catch(Exception e) {
-			System.out.println("Error connectiong to server: " + e);
+		//SyncInitializer initializer = new SyncInitializer();
+		if(initializeSocket(port)==false)
 			return false;
-		}
-		System.out.println("Connection accepted " +
-				socket.getInetAddress() + ":" +
-				socket.getPort());
 
 		/* Creating both Data Stream */
-		try
-		{
-			Sinput  = new ObjectInputStream(socket.getInputStream());
-			Soutput = new ObjectOutputStream(socket.getOutputStream());
-		}
-		catch (IOException e) {
-			System.out.println("Exception creating new Input/output Streams: " + e);
+		if(initializeStreams()==false)
 			return false;
-		}
 		return true;
 
 	}
@@ -65,8 +58,8 @@ public class Synchronizer {
 		// send the string to the server
 		System.out.println("Client sending \"" + s + "\" to server");
 		try {
-			Soutput.writeObject(s);
-			Soutput.flush();
+			data.Soutput.writeObject(s);
+			data.Soutput.flush();
 		}
 		catch(IOException e) {
 			System.out.println("Error writting to the socket: " + e);
@@ -80,7 +73,7 @@ public class Synchronizer {
 		// read back the answer from the server
 		String response;
 		try {
-			response = (String) Sinput.readObject();
+			response = (String) data.Sinput.readObject();
 			return response;
 			//System.out.println("Read back from server: " + response);
 		}
@@ -88,25 +81,46 @@ public class Synchronizer {
 			System.out.println("Problem reading back from server: " + e);
 			return null;
 		}
-	//	return true;
+		//	return true;
 	}
 
 	public void disconnect() throws IOException
 	{
-		Sinput.close();
-		Soutput.close();
-		socket.close();
+		data.Sinput.close();
+		data.Soutput.close();
+		data.socket.close();
 
-	}    
-	/*while(true)
-              {
-            	 try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-              }
-      } 
-	 */
+	}   
+
+
+	private boolean initializeStreams() {
+		try
+		{
+			data.Sinput  = new ObjectInputStream(data.socket.getInputStream());
+			data.Soutput = new ObjectOutputStream(data.socket.getOutputStream());
+		}
+		catch (IOException e) {
+			System.out.println("Exception creating new Input/output Streams: " + e);
+			return false;
+		}
+		return true;
+	}
+
+	private boolean initializeSocket(int port) {
+		try {
+			data.socket = new Socket("localhost", port);
+		}
+		catch(Exception e) {
+			System.out.println("Error connectiong to server: " + e);
+			return false;
+		}
+		System.out.println("Connection accepted " +
+				data.socket.getInetAddress() + ":" +
+				data.socket.getPort());
+		return true;
+	}
+
+
+
+
 }

@@ -3,7 +3,7 @@
 
 ### Updated Design : 3.1.13  
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯  
-__No more bad smells in class LoginMaster!!__  
+__No more bad smells in classes LoginMaster and Synchronizer!!__  
 #### Major changes:  
 
 __[Lack of Cohesion In Methods - Henderson Sellers](https://github.com/ilayze/VirtuClass/blob/master/SDF/Notes/bad%20smells%20-%20code%20review%20images/4.1.13/Lack%20of%20Cohesion%20In%20Methods%20-%20Henderson%20Sellers.jpg)__  
