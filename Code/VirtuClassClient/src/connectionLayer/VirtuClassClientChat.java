@@ -18,26 +18,19 @@ public class VirtuClassClientChat implements Runnable {
 
 
 	public VirtuClassClientChat(OpenClassroom op) {
-
 		this.data.op=op;	
-
 		// The default port.
 		int portNumber = 8888;
 		// The default host.
 		String host = "localhost";// can be ip address
-
 		/*
 		 * Open a socket on a given host and port. Open input and output streams.
 		 */
 		initializeSocketAndStreams(portNumber, host);
-
-
-		/*
-		 * If everything has been initialized then we want to write some data to the
+		 /* If everything has been initialized then we want to write some data to the
 		 * socket we have opened a connection to on the port portNumber.
 		 */
 		startChat(op);
-
 	}
 	
 	private VirtuClassClientChat(VirtuClassClientChatData data)
@@ -62,16 +55,12 @@ public class VirtuClassClientChat implements Runnable {
 		}
 	}
 	
-	/**
-	 * @param op
-	 */
+
 	private void startChat(OpenClassroom op) {
 		if (data.clientSocket != null && data.os != null && data.is != null) {
 			try {
-
 				/* Create a thread to read from the server. */
 				new Thread(new VirtuClassClientChat(data)).start();
-
 				writeChat(op);
 				/*
 				 * Close the output stream, close the input stream, close the socket.
@@ -90,18 +79,13 @@ public class VirtuClassClientChat implements Runnable {
 		data.is.close();
 		data.clientSocket.close();
 	}
-	/**
-	 * @param op
-	 * @throws IOException
-	 */
+
 	private void writeChat(OpenClassroom op) throws IOException {
 		while (!closed) {
-
 			synchronized(op){
 				try {
 					op.wait();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -109,17 +93,12 @@ public class VirtuClassClientChat implements Runnable {
 				break;
 			String a = op.ei.getText();
 			data.os.writeUTF(a);
-
 		}
 	}
-	/**
-	 * @param portNumber
-	 * @param host
-	 */
+
 	private void initializeSocketAndStreams(int portNumber, String host) {
 		try {
 			data.clientSocket = new Socket(host, portNumber);
-			//			inputLine = new BufferedReader(new InputStreamReader(System.in));
 			data.os = new DataOutputStream(data.clientSocket.getOutputStream());
 			data.is = new DataInputStream(data.clientSocket.getInputStream());
 		} catch (UnknownHostException e) {
