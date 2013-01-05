@@ -22,11 +22,32 @@ import logicLayer.EditorInfo;
 
 public class EditorFrame extends JFrame implements Runnable{
 
+
+	public EditorFrameData data = new EditorFrameData(new EditorFrameInnerData());
+	public final static String SEND_CMD = "send";
+
+	/**
+	 * Create the frame.
+	 */
+	public EditorFrame(ActionListener m) {
+		initFrame();
+		initFramePanel();	
+		initChatEditorPanel();	
+		initChatInputPart(m);
+		
+		addCalcButton();
+		
+		addMenuBar();
+		
+		defineFuncPointers();
+	}
+
+
 	public static class EditorFrameData {
-		public EditorFrameInnerData editorInnerData;
+		private EditorFrameInnerData editorInnerData;
 		public EditorInfo ei;
 
-		public EditorFrameData(EditorFrameInnerData editorInnerData) {
+		private EditorFrameData(EditorFrameInnerData editorInnerData) {
 			this.editorInnerData = editorInnerData;
 		}
 	}
@@ -46,32 +67,7 @@ public class EditorFrame extends JFrame implements Runnable{
 		private EditorFrameInnerData() {
 		}
 	}
-
-
-	public EditorFrameData data = new EditorFrameData(new EditorFrameInnerData());
-	public final static String SEND_CMD = "send";
-	/**
-	 * Launch the application.
-	 */
-
-
-	/**
-	 * Create the frame.
-	 */
-	public EditorFrame(ActionListener m) {
-		initFrame();
-		initFramePanel();	
-		initChatEditorPanel();	
-		initChatInputPart(m);
-		
-		addCalcButton();
-		
-		addMenuBar();
-		
-		defineFuncPointers();
-	}
-
-
+	
 	private void defineFuncPointers() {
 		data.ei = new EditorInfo() {
 
