@@ -1,6 +1,15 @@
 #Change Log
 ========================================================
 
+### Updated Design : 5.1.13  
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯  
+__No more bad smells in VirtuClassClient project!!__  
+#### Major changes:  
+
+__[Cyclomatic Complexity - Method](https://github.com/ilayze/VirtuClass/blob/master/SDF/Notes/bad%20smells%20-%20code%20review%20images/5.1.13/Cyclomatic%20Complexity%20-%20Method.jpg)__  
+__[Lines of Code - Method](https://github.com/ilayze/VirtuClass/blob/master/SDF/Notes/bad%20smells%20-%20code%20review%20images/5.1.13/Lines%20of%20Code%20-%20Method.jpg)__  
+__[Number of Statements - Method](https://github.com/ilayze/VirtuClass/blob/master/SDF/Notes/bad%20smells%20-%20code%20review%20images/5.1.13/Number%20of%20Statements%20-%20Method.jpg)__  
+
 ### Updated Design : 4.1.13  
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯  
 __No more bad smells in packages connectionLayer and logicLayer!!__  
