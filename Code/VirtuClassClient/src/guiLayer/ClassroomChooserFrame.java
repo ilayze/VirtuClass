@@ -47,20 +47,8 @@ public class ClassroomChooserFrame extends JFrame {
 		initFrame();
 		initFramePanel();
 		
-		JPanel panel = initOpenClassroomsPanel();
-		
-		JList list = new JList();
-		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Automation ", "Calculus 1", "Calculus 2", "Discreat Math", "Linear Algebra"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		list.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		panel.add(list);
+		JPanel panel = initOpenClassroomsPanel();	
+		initOpenClassroomsList(panel);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Currently Online", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -86,6 +74,24 @@ public class ClassroomChooserFrame extends JFrame {
 		JButton btnNewButton_1 = new JButton("Exit");
 		btnNewButton_1.setBounds(461, 439, 233, 30);
 		contentPane.add(btnNewButton_1);
+	}
+
+	/**
+	 * @param panel
+	 */
+	private void initOpenClassroomsList(JPanel panel) {
+		JList list = new JList();
+		list.setModel(new AbstractListModel() {
+			String[] values = new String[] {"Automation ", "Calculus 1", "Calculus 2", "Discreat Math", "Linear Algebra"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		list.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		panel.add(list);
 	}
 
 	/**
