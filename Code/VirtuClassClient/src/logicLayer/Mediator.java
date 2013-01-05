@@ -157,7 +157,6 @@ public class Mediator extends Thread{
 	private class OpenClassMediator implements Runnable//http://eclipse-metrics.sourceforge.net/descriptions/pages/cohesion/PairwiseFieldIrrelation.html
 	{
 		OpenClassroom op;
-		
 			private class OpenClassMessagesMediator implements ActionListener
 			{
 	
@@ -171,12 +170,10 @@ public class Mediator extends Thread{
 						
 					}
 				}
-				
 			}
 		
 			public OpenClassMediator()
 			{
-				
 			}
 	
 			@Override
@@ -197,10 +194,9 @@ public class Mediator extends Thread{
 				OpenClassMessagesMediator msgMed = new OpenClassMessagesMediator();
 				EditorFrame frame = new EditorFrame(msgMed);
 				frame.setVisible(true);
-				op = new OpenClassroom(frame.data.ei);
+				op = new OpenClassroom(frame.data.ei,frame.data.wc);
 				Thread t1 = new Thread(op);
 				t1.start();
-	
 			}
 	}
 

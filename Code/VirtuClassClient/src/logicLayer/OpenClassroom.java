@@ -7,12 +7,13 @@ import  connectionLayer.VirtuClassClientChat;
 public class OpenClassroom implements Runnable ,ActionListener{
 	
 	public EditorInfo ei;
+	public WindowClose wc;
 	public String newInput="";
 	
-	public OpenClassroom(EditorInfo ei)
+	public OpenClassroom(EditorInfo ei, WindowClose wc)
 	{
 		this.ei=ei;
-		
+		this.wc=wc;
 	}
 
 	@Override

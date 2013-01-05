@@ -1,6 +1,7 @@
 package guiLayer;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
@@ -19,6 +21,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import logicLayer.EditorInfo;
+import logicLayer.WindowClose;
 
 public class EditorFrame extends JFrame implements Runnable{
 
@@ -30,6 +33,7 @@ public class EditorFrame extends JFrame implements Runnable{
 	 * Create the frame.
 	 */
 	public EditorFrame(ActionListener m) {
+		catchWindowEvent();
 		initFrame();
 		initFramePanel();	
 		initChatEditorPanel();	
@@ -38,15 +42,25 @@ public class EditorFrame extends JFrame implements Runnable{
 		addCalcButton();
 		
 		addMenuBar();
-		
 		defineFuncPointers();
+	}
+
+
+	private void catchWindowEvent() {
+		data.wc = new WindowClose() {
+			@Override
+			public void catchClosingWindow(WindowAdapter adapter) {
+				data.editorInnerData.thisEditor.addWindowListener(adapter);
+			}
+		};
 	}
 
 
 	public static class EditorFrameData {
 		private EditorFrameInnerData editorInnerData;
 		public EditorInfo ei;
-
+		public WindowClose wc;
+		
 		private EditorFrameData(EditorFrameInnerData editorInnerData) {
 			this.editorInnerData = editorInnerData;
 		}
@@ -63,6 +77,8 @@ public class EditorFrame extends JFrame implements Runnable{
 		private JEditorPane chatInputEditorPane;
 		private JEditorPane chatEditorPane;
 		private JPanel contentPane;
+		private Font f;
+		private EditorFrame thisEditor;
 
 		private EditorFrameInnerData() {
 		}
@@ -74,7 +90,7 @@ public class EditorFrame extends JFrame implements Runnable{
 			@Override
 			public void setText(String s) {
 				if(s!=null && s.length()!=0)
-					data.editorInnerData.chatEditorPane.setText(data.editorInnerData.chatEditorPane.getText()+"\n"+s);
+					data.editorInnerData.chatEditorPane.setText(data.editorInnerData.chatEditorPane.getText()+s+"\n");
 			}	
 			
 			@Override	
@@ -172,8 +188,8 @@ public class EditorFrame extends JFrame implements Runnable{
 		JLabel lblWriteSomethingHere = new JLabel("Write something here:");
 		panel_1.add(lblWriteSomethingHere, BorderLayout.NORTH);
 		data.editorInnerData.chatInputEditorPane = new JEditorPane();
-		panel_1.add(data.editorInnerData.chatInputEditorPane, BorderLayout.CENTER);
-			
+		data.editorInnerData.chatInputEditorPane.setFont(data.editorInnerData.f);
+		panel_1.add(data.editorInnerData.chatInputEditorPane, BorderLayout.CENTER);	
 		return addEmptyLabelsForView(panel_1);
 	}
 
@@ -202,8 +218,8 @@ public class EditorFrame extends JFrame implements Runnable{
 		panel.setBounds(0, 83, 558, 353);
 		data.editorInnerData.contentPane.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
-		
 		data.editorInnerData.chatEditorPane = new JEditorPane();
+		data.editorInnerData.chatEditorPane.setFont(data.editorInnerData.f);
 		data.editorInnerData.chatEditorPane.setEditable(false);
 		panel.add(data.editorInnerData.chatEditorPane, BorderLayout.CENTER);		
 		JScrollPane scrollBar = new JScrollPane(data.editorInnerData.chatEditorPane);
@@ -220,6 +236,7 @@ public class EditorFrame extends JFrame implements Runnable{
 		data.editorInnerData.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(data.editorInnerData.contentPane);
 		data.editorInnerData.contentPane.setLayout(null);
+		data.editorInnerData.f = new Font("ARIEL", Font.PLAIN, 14);
 	}
 
 
@@ -230,6 +247,7 @@ public class EditorFrame extends JFrame implements Runnable{
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 564, 577);
+		data.editorInnerData.thisEditor=this;
 	}
 
 
