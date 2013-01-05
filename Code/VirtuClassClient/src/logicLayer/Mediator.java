@@ -1,7 +1,7 @@
 package logicLayer;
 
 //import guiLayer.EditorFrame;
-import guiLayer.EditorFrame2;
+import guiLayer.EditorFrame;
 import guiLayer.LoginFrame;
 
 import java.awt.EventQueue;
@@ -165,7 +165,7 @@ public class Mediator extends Thread{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(e.getActionCommand()==EditorFrame2.SEND_CMD)
+				if(e.getActionCommand()==EditorFrame.SEND_CMD)
 				{
 					synchronized (op) { 
 						op.notifyAll();
@@ -197,7 +197,7 @@ public class Mediator extends Thread{
 		public void startEditor()
 		{
 			OpenClassMessagesMediator msgMed = new OpenClassMessagesMediator();
-			EditorFrame2 frame = new EditorFrame2(msgMed);
+			EditorFrame frame = new EditorFrame(msgMed);
 			frame.setVisible(true);
 			op = new OpenClassroom(frame.ei);
 			Thread t1 = new Thread(op);
