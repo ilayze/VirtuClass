@@ -97,12 +97,11 @@ class clientThread extends Thread {
 		maxClientsCount = threads.length;
 	}
 
-	//@SuppressWarnings("deprecation")
+
 	public void run() {
 		int maxClientsCount = this.maxClientsCount;
 		clientThread[] threads = this.threads;
-
-
+		String name="";
 		try {
 			/*
 			 * Create input and output streams for this client.
@@ -110,7 +109,7 @@ class clientThread extends Thread {
 			is = new DataInputStream(clientSocket.getInputStream());
 			os = new DataOutputStream(clientSocket.getOutputStream());
 			os.writeUTF("Enter your name.");
-			String name = is.readUTF().trim();
+			name = is.readUTF().trim();
 			os.writeUTF("Hello " + name
 					+ " to our chat room.\nTo leave enter /quit in a new line");
 			for (int i = 0; i < maxClientsCount; i++) {
@@ -133,35 +132,51 @@ class clientThread extends Thread {
 			}
 			os.writeUTF("*** Bye " + name + " ***");
 			os.writeUTF("/quit");
-			for (int i = 0; i < maxClientsCount; i++) {
-				if (threads[i] != null && threads[i] != this) {
-					threads[i].os.writeUTF("*** The user " + name
-							+ " is leaving the chat room !!! ***");
-				}
-			}
 
+
+			
+		}catch (IOException e) {
+			System.out.println("client exited abnormally");
+			//e.printStackTrace();
+		}finally{
 
 			/*
 			 * Clean up. Set the current thread variable to null so that a new client
 			 * could be accepted by the server.
 			 */
 			for (int i = 0; i < maxClientsCount; i++) {
+				if (threads[i] != null && threads[i] != this) {
+					try {
+						if(name.length()>0)
+						threads[i].os.writeUTF("*** The user " + name
+								+ " is leaving the chat room !!! ***");
+					} catch (IOException e) {
+						
+						//e.printStackTrace();
+						System.out.println("Another user has quitted in the meanwhile\nand therefore can't write to him as well.");
+					}
+				}
+			}
+			for (int i = 0; i < maxClientsCount; i++) {
 				if (threads[i] == this) {
 					threads[i] = null;
 				}
 			}
-
-
-			/*
-			 * Close the output stream, close the input stream, close the socket.
-			 */
+			Thread.currentThread().interrupt();
+		}
+		
+		/*
+		 * Close the output stream, close the input stream, close the socket.
+		 */
+		try {
 			is.close();
 			os.close();
 			clientSocket.close();
-
-
-		}catch (IOException e) {
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+
+		
 	}
 
 }
