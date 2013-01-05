@@ -223,7 +223,7 @@ public class Mediator extends Thread{
 		LoginScreenMediator m = new LoginScreenMediator();
 		LoginFrame frame = new LoginFrame(m);
 		WindowEvent wev = new WindowEvent(frame, WindowEvent.WINDOW_CLOSING);
-		m.l = new LoginMaster(frame.li,wev);
+		m.l = new LoginMaster(frame.data.li,wev);
 		frame.setVisible(true);
 	}
 	
