@@ -1,7 +1,6 @@
 package guiLayer;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,7 +9,6 @@ import javax.swing.border.TitledBorder;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 
-import javax.swing.ActionMap;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.JEditorPane;
@@ -21,13 +19,26 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import logicLayer.EditorInfo;
-import javax.swing.JScrollBar;
 
 public class EditorFrame extends JFrame implements Runnable{
 
-	private JEditorPane chatInputEditorPane;
-	private JEditorPane chatEditorPane;
-	private JPanel contentPane;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5595679210482278126L;
+
+
+	private static class EditorFrameData {
+		private JEditorPane chatInputEditorPane;
+		private JEditorPane chatEditorPane;
+		private JPanel contentPane;
+
+		private EditorFrameData() {
+		}
+	}
+
+
+	private EditorFrameData editorData = new EditorFrameData();
 	public EditorInfo ei;
 	public final static String SEND_CMD = "send";
 	/**
@@ -39,66 +50,57 @@ public class EditorFrame extends JFrame implements Runnable{
 	 * Create the frame.
 	 */
 	public EditorFrame(ActionListener m) {
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 564, 577);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(32, 178, 170));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		initFrame();
+		initFramePanel();
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(32, 178, 170));
-		panel.setForeground(new Color(0, 139, 139));
-		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Chat", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(0, 83, 558, 353);
-		contentPane.add(panel);
-		panel.setLayout(new BorderLayout(0, 0));
+		initChatEditorPanel();
 		
-		chatEditorPane = new JEditorPane();
-		chatEditorPane.setEditable(false);
-		panel.add(chatEditorPane, BorderLayout.CENTER);
+		initChatInputPart(m);
 		
-		JScrollPane scrollBar = new JScrollPane(chatEditorPane);
-		panel.add(scrollBar, BorderLayout.CENTER);
+		addCalcButton();
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(32, 178, 170));
-		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(0, 433, 558, 126);
-		contentPane.add(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
+		addMenuBar();
 		
-		JLabel lblWriteSomethingHere = new JLabel("Write something here:");
-		panel_1.add(lblWriteSomethingHere, BorderLayout.NORTH);
-		chatInputEditorPane = new JEditorPane();
-		panel_1.add(chatInputEditorPane, BorderLayout.CENTER);
-		
-		
-		JLabel label = new JLabel(" ");
-		panel_1.add(label, BorderLayout.WEST);
-		
-		JLabel label_1 = new JLabel(" ");
-		panel_1.add(label_1, BorderLayout.SOUTH);
-		
-		JButton btnSend = new JButton("   Send   ");
-		btnSend.setActionCommand(SEND_CMD);
-		btnSend.addActionListener(m);
-		btnSend.setBackground(new Color(32, 178, 170));
-		panel_1.add(btnSend, BorderLayout.EAST);
-		
-		JButton calcButton = new JButton("Calc");
-		calcButton.setBounds(10, 32, 74, 50);
-		contentPane.add(calcButton);
-		
+		ei = new EditorInfo() {
+			
+			@Override
+			public void setText(String s) {
+				if(s!=null)
+					editorData.chatEditorPane.setText(editorData.chatEditorPane.getText()+"\n"+s);
+			}
+			
+			@Override
+			public String getText() {
+				if(editorData.chatInputEditorPane.getText()==null)
+					return "";
+				String toSend=editorData.chatInputEditorPane.getText();
+				editorData.chatInputEditorPane.setText("");
+				return toSend;
+			}
+		};
+	}
+
+
+
+
+	private void addMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 558, 15);
-		contentPane.add(menuBar);
-		
+		editorData.contentPane.add(menuBar);
+
 		JMenu mnFile = new JMenu("  File  ");
 		menuBar.add(mnFile);
 		
+		addFileMenuItems(mnFile);
+	}
+
+
+
+
+	/**
+	 * @param mnFile
+	 */
+	private void addFileMenuItems(JMenu mnFile) {
 		JMenuItem mntmAbout = new JMenuItem("About    ");
 		mnFile.add(mntmAbout);
 		
@@ -107,24 +109,115 @@ public class EditorFrame extends JFrame implements Runnable{
 		
 		JMenuItem mntmExit = new JMenuItem("Exit     ");
 		mnFile.add(mntmExit);
+	}
+
+
+
+	/**
+	 * 
+	 */
+	private void addCalcButton() {
+		JButton calcButton = new JButton("Calc");
+		calcButton.setBounds(10, 32, 74, 50);
+		editorData.contentPane.add(calcButton);
+	}
+
+
+
+	/**
+	 * @param m
+	 */
+	private void initChatInputPart(ActionListener m) {
+		JPanel panel_1 = initInputEditor();
 		
-		ei = new EditorInfo() {
+		addSendButton(m, panel_1);
+	}
+
+
+
+	/**
+	 * @param m
+	 * @param panel_1
+	 */
+	private void addSendButton(ActionListener m, JPanel panel_1) {
+		JButton btnSend = new JButton("   Send   ");
+		btnSend.setActionCommand(SEND_CMD);
+		btnSend.addActionListener(m);
+		btnSend.setBackground(new Color(32, 178, 170));
+		panel_1.add(btnSend, BorderLayout.EAST);
+	}
+
+
+
+	private JPanel initInputEditor() {
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(32, 178, 170));
+		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(0, 433, 558, 126);
+		editorData.contentPane.add(panel_1);
+		panel_1.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblWriteSomethingHere = new JLabel("Write something here:");
+		panel_1.add(lblWriteSomethingHere, BorderLayout.NORTH);
+		editorData.chatInputEditorPane = new JEditorPane();
+		panel_1.add(editorData.chatInputEditorPane, BorderLayout.CENTER);
 			
-			@Override
-			public void setText(String s) {
-				if(s!=null)
-					chatEditorPane.setText(chatEditorPane.getText()+"\n"+s);
-			}
-			
-			@Override
-			public String getText() {
-				if(chatInputEditorPane.getText()==null)
-					return "";
-				String toSend=chatInputEditorPane.getText();
-				chatInputEditorPane.setText("");
-				return toSend;
-			}
-		};
+		return addEmptyLabelsForView(panel_1);
+	}
+
+
+
+	/**
+	 * @param panel_1
+	 * @return
+	 */
+	private JPanel addEmptyLabelsForView(JPanel panel_1) {
+		JLabel label = new JLabel(" ");
+		panel_1.add(label, BorderLayout.WEST);
+		
+		JLabel label_1 = new JLabel(" ");
+		panel_1.add(label_1, BorderLayout.SOUTH);
+		return panel_1;
+	}
+
+
+
+	private void initChatEditorPanel() {
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(32, 178, 170));
+		panel.setForeground(new Color(0, 139, 139));
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Chat", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(0, 83, 558, 353);
+		editorData.contentPane.add(panel);
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		editorData.chatEditorPane = new JEditorPane();
+		editorData.chatEditorPane.setEditable(false);
+		panel.add(editorData.chatEditorPane, BorderLayout.CENTER);		
+		JScrollPane scrollBar = new JScrollPane(editorData.chatEditorPane);
+		panel.add(scrollBar, BorderLayout.CENTER);
+	}
+
+
+	/**
+	 * 
+	 */
+	private void initFramePanel() {
+		editorData.contentPane = new JPanel();
+		editorData.contentPane.setBackground(new Color(32, 178, 170));
+		editorData.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(editorData.contentPane);
+		editorData.contentPane.setLayout(null);
+	}
+
+
+	/**
+	 * 
+	 */
+	private void initFrame() {
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 564, 577);
 	}
 
 
