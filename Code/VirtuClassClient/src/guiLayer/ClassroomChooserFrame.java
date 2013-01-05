@@ -21,7 +21,7 @@ import java.awt.event.ActionEvent;
 public class ClassroomChooserFrame extends JFrame {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -56,13 +56,13 @@ public class ClassroomChooserFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Open Rooms", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(6, 83, 551, 344);
 		contentPane.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
-		
+
 		JList list = new JList();
 		list.setModel(new AbstractListModel() {
 			String[] values = new String[] {"Automation ", "Calculus 1", "Calculus 2", "Discreat Math", "Linear Algebra"};
@@ -75,20 +75,20 @@ public class ClassroomChooserFrame extends JFrame {
 		});
 		list.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		panel.add(list);
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Currently Online", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(564, 85, 130, 339);
 		contentPane.add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		panel_1.add(scrollPane);
-		
+
 		JButton btnConnect = new JButton("Connect");
 		btnConnect.setBounds(16, 439, 201, 30);
 		contentPane.add(btnConnect);
-		
+
 		JButton btnNewButton = new JButton("Refresh");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -96,7 +96,7 @@ public class ClassroomChooserFrame extends JFrame {
 		});
 		btnNewButton.setBounds(219, 439, 230, 30);
 		contentPane.add(btnNewButton);
-		
+
 		JButton btnNewButton_1 = new JButton("Exit");
 		btnNewButton_1.setBounds(461, 439, 233, 30);
 		contentPane.add(btnNewButton_1);
