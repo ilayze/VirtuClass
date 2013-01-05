@@ -1,6 +1,8 @@
 package connectionLayer;
 
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -18,9 +20,8 @@ public class VirtuClassClientChat implements Runnable {
 
 
 	public VirtuClassClientChat(OpenClassroom op) {
-		this.data.op=op;	
-		// The default port.
-		int portNumber = 8888;
+		this.data.op=op;
+		int portNumber = 8888;	// The default port.
 		// The default host.
 		String host = "localhost";// can be ip address
 		/*
@@ -51,7 +52,7 @@ public class VirtuClassClientChat implements Runnable {
 			readChat();
 			closed = true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 	
@@ -101,14 +102,31 @@ public class VirtuClassClientChat implements Runnable {
 			data.clientSocket = new Socket(host, portNumber);
 			data.os = new DataOutputStream(data.clientSocket.getOutputStream());
 			data.is = new DataInputStream(data.clientSocket.getInputStream());
+			catchAbnormalClose();
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host " + host);
 		} catch (IOException e) {
 			System.err.println("Couldn't get I/O for the connection to the host "
 					+ host);
 		}
+
 	}
 
+
+	private void catchAbnormalClose(){
+		data.op.wc.catchClosingWindow(new WindowAdapter() {	 
+	        @Override
+	        public void windowClosing(WindowEvent e) {
+	        	try {
+					closeChat();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+	        	System.out.println("closed everything");
+	        	System.exit(1);
+	        }
+	    });
+	}
 
 	/**
 	 * @throws IOException
@@ -126,7 +144,7 @@ public class VirtuClassClientChat implements Runnable {
 		private DataOutputStream os;
 		private DataInputStream is;
 		private OpenClassroom op;
-
+		
 		private VirtuClassClientChatData(Socket clientSocket,
 				DataOutputStream os, DataInputStream is) {
 			this.clientSocket = clientSocket;
