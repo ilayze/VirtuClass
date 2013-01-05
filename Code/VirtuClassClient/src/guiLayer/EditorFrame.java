@@ -22,24 +22,33 @@ import logicLayer.EditorInfo;
 
 public class EditorFrame extends JFrame implements Runnable{
 
+	public static class EditorFrameData {
+		public EditorFrameInnerData editorInnerData;
+		public EditorInfo ei;
+
+		public EditorFrameData(EditorFrameInnerData editorInnerData) {
+			this.editorInnerData = editorInnerData;
+		}
+	}
+
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5595679210482278126L;
 
 
-	private static class EditorFrameData {
+	private static class EditorFrameInnerData {
 		private JEditorPane chatInputEditorPane;
 		private JEditorPane chatEditorPane;
 		private JPanel contentPane;
 
-		private EditorFrameData() {
+		private EditorFrameInnerData() {
 		}
 	}
 
 
-	private EditorFrameData editorData = new EditorFrameData();
-	public EditorInfo ei;
+	public EditorFrameData data = new EditorFrameData(new EditorFrameInnerData());
 	public final static String SEND_CMD = "send";
 	/**
 	 * Launch the application.
@@ -51,42 +60,49 @@ public class EditorFrame extends JFrame implements Runnable{
 	 */
 	public EditorFrame(ActionListener m) {
 		initFrame();
-		initFramePanel();
-		
-		initChatEditorPanel();
-		
+		initFramePanel();	
+		initChatEditorPanel();	
 		initChatInputPart(m);
 		
 		addCalcButton();
 		
 		addMenuBar();
 		
-		ei = new EditorInfo() {
-			
-			@Override
-			public void setText(String s) {
-				if(s!=null)
-					editorData.chatEditorPane.setText(editorData.chatEditorPane.getText()+"\n"+s);
-			}
-			
-			@Override
-			public String getText() {
-				if(editorData.chatInputEditorPane.getText()==null)
-					return "";
-				String toSend=editorData.chatInputEditorPane.getText();
-				editorData.chatInputEditorPane.setText("");
-				return toSend;
-			}
-		};
+		defineFuncPointers();
 	}
 
+
+	private void defineFuncPointers() {
+		data.ei = new EditorInfo() {
+
+			@Override
+			public void setText(String s) {
+				if(s!=null && s.length()!=0)
+					data.editorInnerData.chatEditorPane.setText(data.editorInnerData.chatEditorPane.getText()+"\n"+s);
+			}	
+			
+			@Override	
+			public String getText() {
+				return getTextFromInputChatbox();
+			}
+		};	
+	}
+
+	private String getTextFromInputChatbox()
+	{
+		if(data.editorInnerData.chatInputEditorPane.getText()==null)
+			return "";
+		String toSend=data.editorInnerData.chatInputEditorPane.getText();
+		data.editorInnerData.chatInputEditorPane.setText("");
+		return toSend;
+	}
 
 
 
 	private void addMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 558, 15);
-		editorData.contentPane.add(menuBar);
+		data.editorInnerData.contentPane.add(menuBar);
 
 		JMenu mnFile = new JMenu("  File  ");
 		menuBar.add(mnFile);
@@ -119,7 +135,7 @@ public class EditorFrame extends JFrame implements Runnable{
 	private void addCalcButton() {
 		JButton calcButton = new JButton("Calc");
 		calcButton.setBounds(10, 32, 74, 50);
-		editorData.contentPane.add(calcButton);
+		data.editorInnerData.contentPane.add(calcButton);
 	}
 
 
@@ -154,13 +170,13 @@ public class EditorFrame extends JFrame implements Runnable{
 		panel_1.setBackground(new Color(32, 178, 170));
 		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(0, 433, 558, 126);
-		editorData.contentPane.add(panel_1);
+		data.editorInnerData.contentPane.add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblWriteSomethingHere = new JLabel("Write something here:");
 		panel_1.add(lblWriteSomethingHere, BorderLayout.NORTH);
-		editorData.chatInputEditorPane = new JEditorPane();
-		panel_1.add(editorData.chatInputEditorPane, BorderLayout.CENTER);
+		data.editorInnerData.chatInputEditorPane = new JEditorPane();
+		panel_1.add(data.editorInnerData.chatInputEditorPane, BorderLayout.CENTER);
 			
 		return addEmptyLabelsForView(panel_1);
 	}
@@ -188,13 +204,13 @@ public class EditorFrame extends JFrame implements Runnable{
 		panel.setForeground(new Color(0, 139, 139));
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Chat", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(0, 83, 558, 353);
-		editorData.contentPane.add(panel);
+		data.editorInnerData.contentPane.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
-		editorData.chatEditorPane = new JEditorPane();
-		editorData.chatEditorPane.setEditable(false);
-		panel.add(editorData.chatEditorPane, BorderLayout.CENTER);		
-		JScrollPane scrollBar = new JScrollPane(editorData.chatEditorPane);
+		data.editorInnerData.chatEditorPane = new JEditorPane();
+		data.editorInnerData.chatEditorPane.setEditable(false);
+		panel.add(data.editorInnerData.chatEditorPane, BorderLayout.CENTER);		
+		JScrollPane scrollBar = new JScrollPane(data.editorInnerData.chatEditorPane);
 		panel.add(scrollBar, BorderLayout.CENTER);
 	}
 
@@ -203,11 +219,11 @@ public class EditorFrame extends JFrame implements Runnable{
 	 * 
 	 */
 	private void initFramePanel() {
-		editorData.contentPane = new JPanel();
-		editorData.contentPane.setBackground(new Color(32, 178, 170));
-		editorData.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(editorData.contentPane);
-		editorData.contentPane.setLayout(null);
+		data.editorInnerData.contentPane = new JPanel();
+		data.editorInnerData.contentPane.setBackground(new Color(32, 178, 170));
+		data.editorInnerData.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(data.editorInnerData.contentPane);
+		data.editorInnerData.contentPane.setLayout(null);
 	}
 
 
