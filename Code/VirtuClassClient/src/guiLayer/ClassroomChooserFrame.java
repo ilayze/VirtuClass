@@ -44,12 +44,63 @@ public class ClassroomChooserFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public ClassroomChooserFrame() {
+		init();
+		
+		addConnectButton();
+		
+		addRefreshButton();
+		
+		addExitButton();
+	}
+
+	/**
+	 * 
+	 */
+	private void init() {
 		initFrame();
 		initFramePanel();
 		
 		JPanel panel = initOpenClassroomsPanel();	
 		initOpenClassroomsList(panel);
 		
+		initOnlineUsersPanel();
+	}
+
+	/**
+	 * 
+	 */
+	private void addExitButton() {
+		JButton btnNewButton_1 = new JButton("Exit");
+		btnNewButton_1.setBounds(461, 439, 233, 30);
+		contentPane.add(btnNewButton_1);
+	}
+
+	/**
+	 * 
+	 */
+	private void addRefreshButton() {
+		JButton btnNewButton = new JButton("Refresh");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton.setBounds(219, 439, 230, 30);
+		contentPane.add(btnNewButton);
+	}
+
+	/**
+	 * 
+	 */
+	private void addConnectButton() {
+		JButton btnConnect = new JButton("Connect");
+		btnConnect.setBounds(16, 439, 201, 30);
+		contentPane.add(btnConnect);
+	}
+
+	/**
+	 * 
+	 */
+	private void initOnlineUsersPanel() {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Currently Online", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(564, 85, 130, 339);
@@ -58,30 +109,13 @@ public class ClassroomChooserFrame extends JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		panel_1.add(scrollPane);
-		
-		JButton btnConnect = new JButton("Connect");
-		btnConnect.setBounds(16, 439, 201, 30);
-		contentPane.add(btnConnect);
-		
-		JButton btnNewButton = new JButton("Refresh");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton.setBounds(219, 439, 230, 30);
-		contentPane.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Exit");
-		btnNewButton_1.setBounds(461, 439, 233, 30);
-		contentPane.add(btnNewButton_1);
 	}
 
-	/**
-	 * @param panel
-	 */
+
 	private void initOpenClassroomsList(JPanel panel) {
 		JList list = new JList();
 		list.setModel(new AbstractListModel() {
+			private static final long serialVersionUID = 597629224548921623L;
 			String[] values = new String[] {"Automation ", "Calculus 1", "Calculus 2", "Discreat Math", "Linear Algebra"};
 			public int getSize() {
 				return values.length;
@@ -95,7 +129,7 @@ public class ClassroomChooserFrame extends JFrame {
 	}
 
 	/**
-	 * @return
+	 * @return OpenClassroomsPanel
 	 */
 	private JPanel initOpenClassroomsPanel() {
 		JPanel panel = new JPanel();
