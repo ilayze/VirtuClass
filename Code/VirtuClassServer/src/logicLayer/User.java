@@ -12,10 +12,10 @@ public class User {
 	private DataOutputStream os;
 	private DataInputStream is;
 	
-	public User(String id, Socket socket,DataOutputStream os,DataInputStream is)
+	public User(String name, Socket socket,DataOutputStream os,DataInputStream is)
 	{
-		if(id!=null)
-			this.id=id;
+		if(name!=null)
+			this.id=name;
 		this.socket = socket;
 		this.os=os;
 		this.is=is;
