@@ -156,6 +156,31 @@ public class ClassroomTests {
 		
 	}
 	
+	@Test
+	public void equals_DifferentObject_false()
+	{
+		
+		//Arrange
+		User usr = new User(null,null,null,null);
+		Classroom c = new Classroom(usr,"Geometry");
+				
+		//Assert
+		assertEquals(false,c.equals(usr));
+		
+	}
+	
+	@Test
+	public void equals_nullObject_false()
+	{
+		
+		//Arrange
+		User usr = new User(null,null,null,null);
+		Classroom c = new Classroom(usr,"Geometry");
+				
+		//Assert
+		assertEquals(false,c.equals(null));
+		
+	}
 	
 
 }
