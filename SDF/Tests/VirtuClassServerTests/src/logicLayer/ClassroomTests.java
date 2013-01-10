@@ -2,6 +2,8 @@ package logicLayer;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 public class ClassroomTests {
@@ -19,7 +21,7 @@ public class ClassroomTests {
 	}
 	
 	@Test
-	public void getNumberOfUsers_NoUsersInClassroom_0() {
+	public void getNumberOfUsers_NoUsersInClassroom_0() throws IOException{
 		
 		//Arrange
 		User usr = new User("Tom",null,null,null);
