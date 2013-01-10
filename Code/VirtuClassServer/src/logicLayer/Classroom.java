@@ -22,6 +22,11 @@ public class Classroom {
 	public User getCreator() {
 		return creator;
 	}
+	
+	public String getName()
+	{
+		return name;
+	}
 
 	public LinkedList<User> getUsers() {
 		return users;
@@ -47,6 +52,10 @@ public class Classroom {
 	}
 
 	public boolean removeUser(User usr) throws IOException {
+		if(usr==null)
+			return false;
+		if(users.size()>1 && creator.equals(usr))
+			changeCreator();
 		if (users.remove(usr)) {
 			usr.quitChat();
 			return true;
@@ -54,9 +63,13 @@ public class Classroom {
 		return false;
 	}
 
-	public void addUser(User usr) {
+	public boolean addUser(User usr) {
 		if (usr != null && !users.contains(usr))
+		{
 			users.add(usr);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -67,6 +80,19 @@ public class Classroom {
 				return true;
 		}
 		return false;
+	}
+	
+	private void changeCreator()
+	{
+		for(User usr1:users)
+		{
+			if(!usr1.equals(creator))
+			{
+				creator=usr1;
+				break;
+			}
+		}
+
 	}
 
 }
