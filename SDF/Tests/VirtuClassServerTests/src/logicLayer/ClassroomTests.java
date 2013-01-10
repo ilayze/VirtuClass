@@ -247,6 +247,24 @@ public class ClassroomTests {
 		//Assert
 		assertEquals(usr,c.getCreator());
 	}
+	
+	@Test
+	public void getCreator_CreatorGuyLeftTheClassroomOfGuyAndMoshe_Moshe() throws IOException
+	{
+		
+		//Arrange
+		User usr = new User("Guy",null,null,null);
+		Classroom c = new Classroom(usr,"Geometry");
+		User usr2 = new User("Moshe",null,null,null);
+	
+		
+		//Act
+		c.addUser(usr2);
+		c.removeUser(usr);
+		
+		//Assert
+		assertEquals(usr2,c.getCreator());
+	}
 
 
 }
