@@ -126,6 +126,6 @@ public class UserTests {
 		//Assert
 		assertEquals(true,usr.equals(usr2));
 	}
-	
+
 
 }
