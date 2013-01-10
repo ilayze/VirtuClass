@@ -1,18 +1,42 @@
 package logicLayer;
 
-import java.io.IOException;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public class ClassroomsManager {
 	LinkedList<Classroom> classes;
 	
-	public LinkedList<Classroom> getClasses()
+	public ClassroomsManager()
 	{
-		return classes;
+		classes = new LinkedList<Classroom>();
+	}
+	
+	public LinkedList<String> getClassesNames()
+	{
+		LinkedList<String> names = new LinkedList<String>();
+		for(Classroom classroom:classes)
+			names.add(classroom.getName());
+		return names;
+	}
+	
+	public boolean joinClassroom(String classroomName,User usr)
+	{
+		Classroom classroom = findRelevantClassroom(classroomName);
+		if(classroom==null)
+			return false;
+		return classroom.addUser(usr);
+	}
+	
+	public int getNumberOfClassrooms()
+	{
+		return classes.size();
 	}
 
-	public boolean addClass(Classroom c)
+	public boolean createClassroom(String classroomName, User usr) {
+		Classroom newClassroom = new Classroom(usr, classroomName);
+		return addClassroom(newClassroom);
+	}
+	
+	private boolean addClassroom(Classroom c)
 	{
 		if(c!=null && !classes.contains(c))
 		{
@@ -22,7 +46,7 @@ public class ClassroomsManager {
 		return false;
 	}
 	
-	public boolean removeClassroom(Classroom c)
+	private boolean removeClassroom(Classroom c)
 	{
 		
 		if(classes.remove(c))
@@ -33,4 +57,13 @@ public class ClassroomsManager {
 		return false;
 	}
 	
+	private Classroom findRelevantClassroom(String classroomName)
+	{
+		User fakeUser = new User("Some name", null, null, null);
+		Classroom fakeClassroom = new Classroom(fakeUser, classroomName);
+		for(Classroom classroom : classes)
+			if(classroom.equals(fakeClassroom))
+				return classroom;
+		return null;
+	}
 }
