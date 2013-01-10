@@ -1,5 +1,7 @@
 package logicLayer;
 
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Classroom {
@@ -31,8 +33,30 @@ public class Classroom {
 		return users.size();
 	}
 
-	public void removeUser(User usr) {
-		users.remove(usr);
+	public boolean deleteData()
+	{
+		boolean allUsersSuccessfullyQuit = true;
+		Iterator<User> i = users.iterator();
+		while(i.hasNext())
+		{
+			User user = i.next();
+			i.remove();
+			try{
+			user.quitChat();}
+			catch(IOException e){
+				allUsersSuccessfullyQuit=false;
+			}
+		}
+		return allUsersSuccessfullyQuit;
+	}
+	
+	public boolean removeUser(User usr) throws IOException {
+		if(users.remove(usr))
+		{
+			usr.quitChat();
+			return true;
+		}
+		return false;
 	}
 
 	public void addUser(User usr) {
