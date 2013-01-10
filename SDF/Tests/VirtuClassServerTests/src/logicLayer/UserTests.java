@@ -115,7 +115,17 @@ public class UserTests {
 		assertEquals(false,usr.equals("abbb"));
 	}
 	
-	
+	@Test
+	public void equals_DifferentUserButWithSameUsername_true() throws IOException
+	{
+		
+		//Arrange
+		User usr = new User("Guy",null,null,null);
+		User usr2 = new User("Guy",null,null,null);
+		
+		//Assert
+		assertEquals(true,usr.equals(usr2));
+	}
 	
 
 }
