@@ -36,7 +36,7 @@ public class ClassroomTests {
 	}
 	
 	@Test
-	public void getNumberOfUsers_FiveUsersEntered_5()
+	public void getNumberOfUsers_FiveDifferentUsersEntered_5()
 	{
 		
 		//Arrange
@@ -77,25 +77,7 @@ public class ClassroomTests {
 		
 	}
 	 
-	@Test
-	public void getNumberOfUsers_NullUsernames_1()
-	{
-		
-		//Arrange
-		User usr = new User(null,null,null,null);
-		User usr2 = new User(null,null,null,null);
-		User usr3 = new User(null,null,null,null);
-		Classroom c = new Classroom(usr,null);
-		
-		//Act
-		c.addUser(usr2);
-		c.addUser(usr3);
-		
-		//Assert
-		assertEquals(1,c.getNumberOfUsers());
-		
-	}
-	 	
+
 	@Test
 	public void getNumberOfUsers_NullUsername_1()
 	{
@@ -110,7 +92,7 @@ public class ClassroomTests {
 	}
 	
 	@Test
-	public void getNumberOfUsers_NullUsersExceptCreator_1()
+	public void getNumberOfUsers_SameUsernames_1()
 	{
 		
 		//Arrange
@@ -228,5 +210,43 @@ public class ClassroomTests {
 		//Assert
 		assertEquals(true,c.removeUser(usr2));
 	}
+	
+	@Test
+	public void deleteData_3UsersInClassroomBeforeDeletion_0UsersLeftInClassroom()
+	{
+		
+		//Arrange
+		User usr = new User("Guy",null,null,null);
+		Classroom c = new Classroom(usr,"Geometry");
+		User usr2 = new User("Gadi",null,null,null);
+		User usr3 = new User("Moti",null,null,null);
+		
+		//Act
+		c.addUser(usr2);
+		c.addUser(usr3);
+		c.deleteData();
+		
+		//Assert
+		assertEquals(0,c.getNumberOfUsers());
+	}
+	
+	@Test
+	public void getCreator_GuyIsTheCreatorOfClassroom_CreatorIsGuy()
+	{
+		
+		//Arrange
+		User usr = new User("Guy",null,null,null);
+		Classroom c = new Classroom(usr,"Geometry");
+		User usr2 = new User("Gadi",null,null,null);
+		User usr3 = new User("Moti",null,null,null);
+		
+		//Act
+		c.addUser(usr2);
+		c.addUser(usr3);
+		
+		//Assert
+		assertEquals(usr,c.getCreator());
+	}
+
 
 }
