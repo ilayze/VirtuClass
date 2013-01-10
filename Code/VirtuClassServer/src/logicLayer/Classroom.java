@@ -19,10 +19,22 @@ public class Classroom {
 		users.add(creator);
 	}
 
+	/**
+	 * Get the creator of this classroom.
+	 * One user may be the creator of many classrooms.
+	 * @return the creator of this classroom
+	 */
 	public User getCreator() {
 		return creator;
 	}
-	
+
+	/**
+	 * <pre>
+	 * get the name of this classroom.
+	 * Every classroom has a unique name.
+	 * </pre>
+	 * @return the creator of this classroom.
+	 */
 	public String getName()
 	{
 		return name;
