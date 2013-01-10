@@ -9,6 +9,41 @@ import org.junit.Test;
 public class ClassroomTests {
 
 	@Test
+	public void addUser_userIsntInClassroom_true() {
+		
+		//Arrange
+		User usr = new User("Tom",null,null,null);
+		Classroom c = new Classroom(usr,null);
+		User usr2 = new User("Guy",null,null,null);
+		
+		//Assert
+		assertEquals(true,c.addUser(usr2));
+	}
+	
+	@Test
+	public void addUser_userExistsInClassroom_false() {
+		
+		//Arrange
+		User usr = new User("Tom",null,null,null);
+		Classroom c = new Classroom(usr,null);
+		User usr2 = new User("Tom",null,null,null);
+		
+		//Assert
+		assertEquals(false,c.addUser(usr2));
+	}
+	
+	@Test
+	public void addUser_userIsNull_false() {
+		
+		//Arrange
+		User usr = new User("Tom",null,null,null);
+		Classroom c = new Classroom(usr,null);
+		
+		//Assert
+		assertEquals(false,c.addUser(null));
+	}
+	
+	@Test
 	public void getCreator_ClassCreatorIsTom_Tom() {
 		
 		//Arrange
@@ -224,9 +259,9 @@ public class ClassroomTests {
 		//Act
 		c.addUser(usr2);
 		c.addUser(usr3);
-		c.deleteData();
 		
 		//Assert
+		assertEquals(true, c.deleteData());
 		assertEquals(0,c.getNumberOfUsers());
 	}
 	
