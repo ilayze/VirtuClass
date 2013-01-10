@@ -182,5 +182,51 @@ public class ClassroomTests {
 		
 	}
 	
+	@Test
+	public void removeUser_nullObject_false() throws IOException
+	{
+		
+		//Arrange
+		User usr = new User(null,null,null,null);
+		Classroom c = new Classroom(usr,"Geometry");
+				
+		//Assert
+		assertEquals(false,c.removeUser(null));
+		
+	}
+	
+	@Test
+	public void removeUser_UserNotInClassroom_false() throws IOException
+	{
+		
+		//Arrange
+		User usr = new User("Guy",null,null,null);
+		Classroom c = new Classroom(usr,"Geometry");
+		User usr2 = new User("Gadi",null,null,null);
+		
+		//Assert
+		assertEquals(false,c.removeUser(usr2));
+		
+	}
+	
+	@Test
+	public void removeUser_UserInClassroom_true() throws IOException
+	{
+		
+		//Arrange
+		User usr = new User("Guy",null,null,null);
+		Classroom c = new Classroom(usr,"Geometry");
+		User usr2 = new User("Gadi",null,null,null);
+		User usr3 = new User("Yosef",null,null,null);
+		User usr4 = new User("Sason",null,null,null);
+		
+		//Act
+		c.addUser(usr2);
+		c.addUser(usr3);
+		c.addUser(usr4);
+		
+		//Assert
+		assertEquals(true,c.removeUser(usr2));
+	}
 
 }
