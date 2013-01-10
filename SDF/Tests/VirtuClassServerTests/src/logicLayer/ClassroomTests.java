@@ -1,6 +1,6 @@
 package logicLayer;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
@@ -140,5 +140,22 @@ public class ClassroomTests {
 		assertEquals(true,c.equals(c2));
 		
 	}
+	
+	@Test
+	public void equals_ClassroomsWithDifferentNames_false()
+	{
+		
+		//Arrange
+		User usr = new User(null,null,null,null);
+		Classroom c = new Classroom(usr,"Geometry");
+		User usr2 = new User("Mushon",null,null,null);
+		Classroom c2 = new Classroom(usr2,"Algebra");
+				
+		//Assert
+		assertEquals(false,c.equals(c2));
+		
+	}
+	
+	
 
 }
