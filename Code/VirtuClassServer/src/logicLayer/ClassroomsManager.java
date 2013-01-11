@@ -1,5 +1,6 @@
 package logicLayer;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
 public class ClassroomsManager {
@@ -26,12 +27,26 @@ public class ClassroomsManager {
 		return classroom.addUser(usr);
 	}
 	
+	public boolean leaveClassroom(String classroomName, User usr) throws ClassroomNotDeletedSuccessfullyException
+	{
+		Classroom classroom = findRelevantClassroom(classroomName);
+		if(classroom==null)
+			return false;
+		if(!tryToRemoveUsrFromClassroom(classroom, usr))
+			return false;
+		if(classroom.getNumberOfUsers()==0)
+			removeClassroom(classroom);
+		return true;
+	}
+	
 	public int getNumberOfClassrooms()
 	{
 		return classes.size();
 	}
 
 	public boolean createClassroom(String classroomName, User usr) {
+		if(usr==null)
+			return false;
 		Classroom newClassroom = new Classroom(usr, classroomName);
 		return addClassroom(newClassroom);
 	}
@@ -46,15 +61,12 @@ public class ClassroomsManager {
 		return false;
 	}
 	
-	private boolean removeClassroom(Classroom c)
+	private void removeClassroom(Classroom c) throws ClassroomNotDeletedSuccessfullyException
 	{
 		
-		if(classes.remove(c))
-		{
-			c.deleteData();
-			return true;
-		}
-		return false;
+		if(!classes.remove(c))
+			throw new ClassroomNotDeletedSuccessfullyException();
+			
 	}
 	
 	private Classroom findRelevantClassroom(String classroomName)
@@ -65,5 +77,16 @@ public class ClassroomsManager {
 			if(classroom.equals(fakeClassroom))
 				return classroom;
 		return null;
+	}
+	
+	private boolean tryToRemoveUsrFromClassroom(Classroom classroom, User usr)
+	{
+		try {
+			if(!classroom.removeUser(usr))
+				return false;
+		} catch (IOException e) {
+			return false;
+		}
+		return true;
 	}
 }
