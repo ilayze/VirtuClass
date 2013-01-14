@@ -31,10 +31,11 @@ public class EditorFrame extends JFrame implements Runnable{
 
 	/**
 	 * Create the frame.
+	 * @param nameOfClassroom 
 	 */
-	public EditorFrame(ActionListener m) {
+	public EditorFrame(ActionListener m, String nameOfClassroom) {
 		catchWindowEvent();
-		initFrame();
+		initFrame(nameOfClassroom);
 		initFramePanel();	
 		initChatEditorPanel();	
 		initChatInputPart(m);
@@ -241,10 +242,12 @@ public class EditorFrame extends JFrame implements Runnable{
 
 
 	/**
+	 * @param nameOfClassroom 
 	 * 
 	 */
-	private void initFrame() {
+	private void initFrame(String nameOfClassroom) {
 		setResizable(false);
+		setTitle(nameOfClassroom);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 564, 577);
 		data.editorInnerData.thisEditor=this;
