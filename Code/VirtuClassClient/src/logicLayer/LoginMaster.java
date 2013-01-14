@@ -19,7 +19,12 @@ public class LoginMaster{
 		terminator = new LoginScreenTerminator(wev);
 
 	}
-
+	
+	public String getUserName()
+	{
+		return handler.li.getUsername();
+	}
+	
 	public boolean sendRequest(int loginType) throws Exception//for now it's almost like login. But later it will change
 	{
 		LoginSignUpSlave slave = new LoginSignUpSlave(loginType);
@@ -119,6 +124,7 @@ public class LoginMaster{
 			this.li=li;
 		}
 
+		
 		private void collectInfo() throws Exception
 		{
 			username=li.getUsername();
