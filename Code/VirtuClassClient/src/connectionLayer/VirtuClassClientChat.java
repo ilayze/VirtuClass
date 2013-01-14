@@ -8,10 +8,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import logicLayer.OpenClassroom;
 
-public class VirtuClassClientChat implements Runnable {
+public class VirtuClassClientChat extends Thread {
 
 
 	private static boolean closed = false;
@@ -34,6 +35,14 @@ public class VirtuClassClientChat implements Runnable {
 		startChat(op);
 	}
 	
+	public VirtuClassClientChat(ArrayBlockingQueue<String> waitingMessagesToBeRead, ArrayBlockingQueue<String> waitingMessagesToBeWritten)
+	{
+		
+		initializeSocketAndStreams(8888, "localhost");
+		this.data.waitingMessagesToBeRead=waitingMessagesToBeRead;
+		this.data.waitingMessagesToBeWritten=waitingMessagesToBeWritten;
+		
+	}
 	private VirtuClassClientChat(VirtuClassClientChatData data)
 	{
 		this.data=data;
@@ -43,20 +52,76 @@ public class VirtuClassClientChat implements Runnable {
 	/*
 	 * Create a thread to read from the server. (non-Javadoc)
 	 */
-	public void run() {
-		/*
-		 * Keep on reading from the socket till we receive "Bye" from the
-		 * server. Once we received that then we want to break.
+	
+	private class ChatReader implements Runnable
+	{
+		private VirtuClassClientChatData data;
+		public ChatReader(VirtuClassClientChatData data) {
+			this.data=data;
+		}
+
+		@Override
+		public void run() {
+			try {
+				readChat();
+				closed = true;
+			} catch (Exception e) {
+				//e.printStackTrace();
+			}
+		}
+		
+		/**
+		 * @throws IOException
 		 */
-		try {
-			readChat();
-			closed = true;
-		} catch (Exception e) {
-			//e.printStackTrace();
+		private void readChat() throws IOException {
+			String responseLine;
+			while ((responseLine = data.is.readUTF()) != null && !responseLine.equals("/quit")) {
+				
+				try {
+					data.waitingMessagesToBeRead.put(responseLine);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				//data.op.ei.setText(responseLine);
+			}
 		}
 	}
 	
-
+	public void run() {
+		startChat();
+	}
+	
+	private void startChat() {
+		if (data.clientSocket != null && data.os != null && data.is != null) {
+//			try {
+				/* Create a thread to read from the server. */
+				new Thread(new ChatReader(data)).start();
+				while(true)
+				{
+					try {
+						String messageToWrite = data.waitingMessagesToBeWritten.take();
+						System.out.println("message i got: " + messageToWrite);
+						try {
+							data.os.writeUTF(messageToWrite);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			//	writeChat(op);
+				/*
+				 * Close the output stream, close the input stream, close the socket.
+				 */
+				//closeChat();
+//			} catch (IOException e) {
+//				System.err.println("IOException:  " + e);
+//			}
+		}
+	}
+	
+	
 	private void startChat(OpenClassroom op) {
 		if (data.clientSocket != null && data.os != null && data.is != null) {
 			try {
@@ -102,7 +167,7 @@ public class VirtuClassClientChat implements Runnable {
 			data.clientSocket = new Socket(host, portNumber);
 			data.os = new DataOutputStream(data.clientSocket.getOutputStream());
 			data.is = new DataInputStream(data.clientSocket.getInputStream());
-			catchAbnormalClose();
+			//catchAbnormalClose();
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host " + host);
 		} catch (IOException e) {
@@ -128,22 +193,15 @@ public class VirtuClassClientChat implements Runnable {
 	    });
 	}
 
-	/**
-	 * @throws IOException
-	 */
-	private void readChat() throws IOException {
-		String responseLine;
-		while ((responseLine = data.is.readUTF()) != null && !responseLine.equals("/quit")) {
-			
-			data.op.ei.setText(responseLine);
-		}
-	}
+
 	
 	private static class VirtuClassClientChatData {
 		private Socket clientSocket;
 		private DataOutputStream os;
 		private DataInputStream is;
 		private OpenClassroom op;
+		private ArrayBlockingQueue<String> waitingMessagesToBeRead;
+		private ArrayBlockingQueue<String> waitingMessagesToBeWritten;
 		
 		private VirtuClassClientChatData(Socket clientSocket,
 				DataOutputStream os, DataInputStream is) {
