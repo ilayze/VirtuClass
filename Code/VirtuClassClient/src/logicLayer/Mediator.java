@@ -208,10 +208,13 @@ public class Mediator extends Thread{
 					name="0:";
 				else if(arg0.getActionCommand().equals(ClassroomChooserFrame2.NEW_CLASSROOM))
 				{
-					if(name==null || name.equals("") || name.length()>12 || alreadyInList(name) ||name.contains(":") || c.getNumberOfOpenClassrooms()>4)
+					if(name==null || name.equals(""))
 					{
-						invalidClassName();
-						return;
+						if(name.length()>12 || alreadyInList(name) ||name.contains(":") || c.getNumberOfOpenClassrooms()>4))
+						{
+							invalidClassName();
+							return;
+						}
 					}
 					name="0"+name;
 				}
