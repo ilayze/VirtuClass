@@ -17,5 +17,7 @@ public abstract class AbstractClass {
 		this._abstractUser = _abstractUser;
 	}
 	
+	public abstract boolean checkIfUsrExistInClassroom(String username);
+	
 	
 }
