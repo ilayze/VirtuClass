@@ -251,7 +251,7 @@ public class ClassroomsManagerTests {
 		ClassroomsManager cm = new ClassroomsManager();
 		
 		//Assert
-		assertEquals(0, cm.getClassesNames().size());
+		assertEquals(0, cm.getNumberOfClassrooms());
 	}
 	
 	@Test
@@ -266,7 +266,7 @@ public class ClassroomsManagerTests {
 		cm.createClassroom("Geometry",usr1);
 		
 		//Assert
-		assertEquals(2, cm.getClassesNames().size());
+		assertEquals(2, cm.getNumberOfClassrooms());
 	}
 	
 	@Test
@@ -281,7 +281,7 @@ public class ClassroomsManagerTests {
 		cm.createClassroom("Algebra",usr1);
 		
 		//Assert
-		assertEquals(1, cm.getClassesNames().size());
+		assertEquals(1, cm.getNumberOfClassrooms());
 	}
 
 }
