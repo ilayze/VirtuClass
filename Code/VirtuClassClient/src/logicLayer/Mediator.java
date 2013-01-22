@@ -266,6 +266,22 @@ public class Mediator extends Thread{
 						openClassroomsNames = messagesToRead.take();
 						if(openClassroomsNames.startsWith("0"))
 						{
+						       successMessage(openClassroomsNames);
+
+						}
+						else
+						{
+							System.out.println(openClassroomsNames);
+							JOptionPane.showMessageDialog(null, "Invalid classroom name", "Couldn't refresh classrooms", JOptionPane.ERROR_MESSAGE);
+						}				
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+successMessage(String openClassroomsNames)
+{
 							openClassroomsNames = openClassroomsNames.substring(1);
 							lc.setNewClassroomsList(openClassroomsNames.substring(12));
 							if(!openClassroomsNames.substring(0, 12).equals("::::::::::::"))
@@ -278,17 +294,8 @@ public class Mediator extends Thread{
 
 								
 							}
-						}
-						else
-						{
-							System.out.println(openClassroomsNames);
-							JOptionPane.showMessageDialog(null, "Invalid classroom name", "Couldn't refresh classrooms", JOptionPane.ERROR_MESSAGE);
-						}				
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
+
+}
 			
 			
 		}
